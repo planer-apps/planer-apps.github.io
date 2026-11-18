@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontakt – Planer-Apps</title>
+  <meta name="description" content="Schreib uns: Fragen, Fehler oder Ideen zu AzubiPlaner, SchulPlaner und Schätzmeister.">
+  <link rel="icon" href="img/azubiplaner.png">
+  <link rel="stylesheet" href="site.css">
+  <!-- Ohne externe Schriften, Skripte oder Tracker. Die Nachricht geht nur an unsere Datenbank (Supabase, Irland). -->
+  <style>
+    :root {
+      --navy: #0E1A2B; --teal: #0F9F8C; --teal-bright: #2CC9B0; --danger: #E5484D;
+      --bg: #F4F6F9; --surface: #FFFFFF; --muted: #EBEFF4; --border: #E1E6ED;
+      --text: #0E1A2B; --text-2: #5B6878; --accent: var(--teal);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0A1422; --surface: #122033; --muted: #1A2B42; --border: #22354F;
+        --text: #EEF2F7; --text-2: #9AA8BA; --accent: var(--teal-bright);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0A1422; --surface: #122033; --muted: #1A2B42; --border: #22354F;
+      --text: #EEF2F7; --text-2: #9AA8BA; --accent: var(--teal-bright);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text);
+      font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    a { color: var(--accent); }
+    .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+    body { background-image: radial-gradient(700px 360px at 50% -120px, color-mix(in srgb, var(--accent) 22%, transparent), transparent); background-repeat: no-repeat; }
+    .eyebrow { display: inline-block; margin-top: 44px; font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+    h1 { font-size: clamp(34px, 7vw, 52px); margin: 6px 0 10px; letter-spacing: -0.03em; line-height: 1.05; }
+    form { box-shadow: 0 1px 2px rgba(14, 26, 43, .06), 0 18px 40px -24px rgba(14, 26, 43, .35); }
+    p.sub { color: var(--text-2); margin: 0 0 24px; }
+    form { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 22px; display: grid; gap: 16px; }
+    label { display: grid; gap: 6px; font-weight: 600; font-size: 15px; }
+    label span.hint { font-weight: 400; color: var(--text-2); font-size: 14px; }
+    input, select, textarea { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 14px; width: 100%; }
+    textarea { min-height: 160px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    button { font: inherit; font-weight: 700; border: 0; border-radius: 14px; padding: 14px 22px; cursor: pointer;
+      background: var(--navy); color: #fff; }
+    :root[data-theme="dark"] button { background: var(--teal-bright); color: var(--navy); }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) button { background: var(--teal-bright); color: var(--navy); } }
+    button[disabled] { opacity: .6; cursor: default; }
+    .note { font-size: 14px; color: var(--text-2); margin: 0; }
+    .msg { padding: 14px 16px; border-radius: 12px; font-weight: 600; display: none; }
+    .msg.ok { display: block; background: color-mix(in srgb, var(--accent) 16%, transparent); }
+    .msg.err { display: block; background: color-mix(in srgb, var(--danger) 16%, transparent); color: var(--danger); }
+    footer { color: var(--text-2); font-size: 15px; padding: 32px 0 40px; }
+  </style>
+</head>
+<body>
+  <nav class="pa-bar" aria-label="Planer-Apps">
+  <div class="pa-in">
+    <a class="pa-logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="paLogoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2CC9B0"/><stop offset="1" stop-color="#0F9F8C"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#paLogoG)"/><path d="M9 16.5l4.5 4.5L23 11" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Planer-Apps</span></a>
+    <details class="pa-apps">
+      <summary>Alle Apps</summary>
+      <div class="pa-menu">
+        <a href="index.html#apps"><span class="pa-all">◆</span><strong>Übersicht</strong><small>Alle Planer-Apps auf einen Blick</small></a>
+        <hr>
+        <a href="azubiplaner/index.html"><img src="img/azubiplaner.png" alt=""><strong>AzubiPlaner</strong><small>Für Auszubildende</small></a>
+        <a href="index.html#schulplaner"><img src="img/schulplaner.png" alt=""><strong>SchulPlaner<span class="pa-soon">bald</span></strong><small>Für Schülerinnen und Schüler</small></a>
+        <a href="index.html#schaetzmeister"><img src="img/schaetzmeister.png" alt=""><strong>Schätzmeister<span class="pa-soon">bald</span></strong><small>Das Schätzspiel für zwischendurch</small></a>
+      </div>
+    </details>
+    <div class="pa-right"><a class="pa-link" href="kontakt.html">Kontakt</a></div>
+  </div>
+</nav>
+
+  <main class="wrap">
+    <span class="eyebrow">Kontakt</span>
+    <h1>Schreib uns.</h1>
+    <p class="sub">Fragen, Fehler oder Ideen? Schreib uns – wir antworten per E-Mail. Lieber direkt per Mail:
+      <a href="mailto:azubiplaner.app@gmail.com">azubiplaner.app@gmail.com</a></p>
+
+    <form id="contact" novalidate>
+      <label>Worum geht es?
+        <select name="app">
+          <option value="allgemein">Allgemein</option>
+          <option value="azubiplaner">AzubiPlaner</option>
+          <option value="schulplaner">SchulPlaner (bald)</option>
+          <option value="schaetzmeister">Schätzmeister (bald)</option>
+        </select>
+      </label>
+      <label>Name <span class="hint">(freiwillig)</span>
+        <input name="name" maxlength="80" autocomplete="name">
+      </label>
+      <label>Deine E-Mail-Adresse <span class="hint">– damit wir antworten können</span>
+        <input name="email" type="email" maxlength="200" required autocomplete="email">
+      </label>
+      <label>Nachricht
+        <textarea name="message" minlength="10" maxlength="3000" required></textarea>
+      </label>
+      <!-- Falle für Spam-Programme: Menschen sehen dieses Feld nicht. -->
+      <label class="hp" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="note">Deine Angaben nutzen wir nur, um dir zu antworten, und löschen sie spätestens nach 12 Monaten.
+        Mehr dazu in der <a href="azubiplaner/datenschutz.html">Datenschutzerklärung</a>.</p>
+      <div id="result" class="msg" role="status"></div>
+      <button id="send" type="submit">Nachricht senden</button>
+    </form>
+  </main>
+  <footer><div class="wrap"><a href="impressum.html">Impressum</a> · <a href="index.html">Alle Apps</a></div></footer>
+
+  <script>
+    (function () {
+      // Öffentlicher Schlüssel (darf im Browser stehen) – geschützt wird über Zugriffsregeln in der Datenbank:
+      // Jeder darf nur SENDEN, lesen dürfen nur Admins. Siehe docs/supabase_kontakt.sql.
+      var URL = 'https://puoyspztavdkwrmhdsio.supabase.co/rest/v1/contact_messages';
+      var KEY = 'sb_publishable_cVo28TV9g1TDlOONPWqn3g_Jj3bhKNY';
+      try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+      var form = document.getElementById('contact'), out = document.getElementById('result'), btn = document.getElementById('send');
+      // Vorauswahl über ?app=azubiplaner (Link aus der App)
+      var pre = new URLSearchParams(location.search).get('app');
+      if (pre && form.app.querySelector('option[value="' + pre + '"]')) form.app.value = pre;
+
+      function show(ok, text) { out.className = 'msg ' + (ok ? 'ok' : 'err'); out.textContent = text; }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (form.website.value) { show(true, 'Danke! Deine Nachricht ist angekommen.'); return; } // Spam-Falle
+        var email = form.email.value.trim(), message = form.message.value.trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { show(false, 'Bitte prüfe deine E-Mail-Adresse.'); return; }
+        if (message.length < 10) { show(false, 'Bitte schreib etwas mehr – noch ' + (10 - message.length) + ' Zeichen.'); return; }
+        btn.disabled = true; btn.textContent = 'Wird gesendet …';
+        fetch(URL, {
+          method: 'POST',
+          headers: { 'apikey': KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+          body: JSON.stringify({ app: form.app.value, name: form.name.value.trim() || null, email: email, message: message })
+        }).then(function (r) {
+          if (r.ok) { form.reset(); show(true, 'Danke! Deine Nachricht ist angekommen – wir melden uns per E-Mail.'); }
+          else { return r.json().then(function (j) { throw new Error(j && j.message ? j.message : r.status); }); }
+        }).catch(function (err) {
+          var m = String(err && err.message || '');
+          show(false, m.indexOf('Zu viele') >= 0 || m.indexOf('zu viele') >= 0 ? m
+            : 'Das hat leider nicht geklappt. Bitte schreib uns direkt an azubiplaner.app@gmail.com.');
+        }).finally(function () { btn.disabled = false; btn.textContent = 'Nachricht senden'; });
+      });
+    })();
+  </script>
+<script src="site.js" defer></script>
+</body>
+</html>

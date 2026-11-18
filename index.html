@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planer-Apps – Apps für Schule und Ausbildung</title>
+  <meta name="description" content="Planer-Apps: AzubiPlaner für Auszubildende, bald auch SchulPlaner und Schätzmeister. Ohne Tracking, die Planer werbefrei.">
+  <meta name="theme-color" content="#0B1524">
+  <link rel="icon" href="img/azubiplaner.png">
+  <link rel="stylesheet" href="site.css">
+  <!-- Bewusst ohne externe Schriften, Skripte oder Tracker: nichts wird an Dritte übertragen. -->
+  <style>
+    :root {
+      --navy: #0E1A2B; --teal: #0F9F8C; --teal-bright: #2CC9B0; --blue: #4C8DF6; --amber: #FFB22E; --violet: #2B2266;
+      --bg: #F4F6F9; --surface: #FFFFFF; --muted: #EBEFF4; --border: #E1E6ED;
+      --text: #0E1A2B; --text-2: #5B6878; --accent: var(--teal);
+      --shadow: 0 1px 2px rgba(14, 26, 43, .06), 0 18px 40px -24px rgba(14, 26, 43, .35);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0A1422; --surface: #122033; --muted: #1A2B42; --border: #22354F;
+        --text: #EEF2F7; --text-2: #9AA8BA; --accent: var(--teal-bright);
+        --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 18px 40px -24px rgba(0, 0, 0, .8);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0A1422; --surface: #122033; --muted: #1A2B42; --border: #22354F;
+      --text: #EEF2F7; --text-2: #9AA8BA; --accent: var(--teal-bright);
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 18px 40px -24px rgba(0, 0, 0, .8);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--text); overflow-x: hidden;
+      font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    a { color: var(--accent); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    h2 { font-size: clamp(30px, 4.2vw, 46px); line-height: 1.08; letter-spacing: -.025em; margin: 0 0 14px; }
+    .eyebrow { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .lead { color: var(--text-2); font-size: 19px; max-width: 38em; margin: 0; }
+
+    /* Einblenden beim Scrollen */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: .08s; } .reveal.d2 { transition-delay: .16s; } .reveal.d3 { transition-delay: .24s; }
+
+    /* ---------- Hero (immer dunkel) ---------- */
+    .hero { position: relative; color: #EEF2F7; background: #0B1524; overflow: hidden; isolation: isolate; }
+    .hero::before { /* feines Raster */
+      content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5;
+      background-image: linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
+      background-size: 44px 44px; mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
+    }
+    .glow { position: absolute; z-index: -1; border-radius: 50%; filter: blur(70px); opacity: .55; animation: drift 18s ease-in-out infinite alternate; }
+    .glow.a { width: 520px; height: 520px; background: #0F9F8C; left: -160px; top: -180px; }
+    .glow.b { width: 460px; height: 460px; background: #1E4FA8; right: -140px; top: 120px; animation-duration: 22s; }
+    .glow.c { width: 380px; height: 380px; background: #3B2C8F; left: 35%; bottom: -260px; animation-duration: 26s; opacity: .45; }
+    @keyframes drift { to { transform: translate(60px, 40px) scale(1.12); } }
+    .hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding-top: 72px; padding-bottom: 96px; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 8px; border-radius: 999px; font-size: 14px; font-weight: 600;
+      background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .12); color: #CFE9E4; margin-bottom: 22px; }
+    .pill b { background: #2CC9B0; color: #0E1A2B; border-radius: 999px; padding: 3px 9px; font-size: 12px; }
+    .hero h1 { font-size: clamp(40px, 6.4vw, 72px); line-height: 1.02; letter-spacing: -.035em; margin: 0 0 20px; }
+    .hero h1 .grad { background: linear-gradient(100deg, #2CC9B0 10%, #7FE3D3 45%, #8FB8FF 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p.sub { font-size: 20px; color: #B7C3D3; margin: 0 0 30px; max-width: 30em; }
+    .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; border-radius: 14px; padding: 15px 22px; font-weight: 700; text-decoration: none; transition: transform .15s, box-shadow .15s, background .15s; }
+    .btn.primary { background: #2CC9B0; color: #0B1524; box-shadow: 0 10px 30px -10px rgba(44, 201, 176, .7); }
+    .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -10px rgba(44, 201, 176, .8); }
+    .btn.ghost { color: #fff; border: 1px solid rgba(255, 255, 255, .22); }
+    .btn.ghost:hover { background: rgba(255, 255, 255, .08); }
+    .trust { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 30px; color: #9AA8BA; font-size: 14px; font-weight: 600; }
+    .trust span::before { content: "✓"; color: #2CC9B0; margin-right: 7px; font-weight: 900; }
+
+    /* Handy-Fächer */
+    .fan { position: relative; height: 560px; perspective: 1400px; }
+    .ph { position: absolute; top: 50%; left: 50%; width: 236px; border-radius: 38px; padding: 8px; background: #05090F;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 40px 80px -24px rgba(0, 0, 0, .8); transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+    .ph img { display: block; width: 100%; aspect-ratio: 1080 / 2340; object-fit: cover; border-radius: 31px; background: #1A2B42; }
+    .ph.l { transform: translate(-112%, -46%) rotate(-9deg) scale(.86); }
+    .ph.r { transform: translate(12%, -46%) rotate(9deg) scale(.86); }
+    .ph.c { transform: translate(-50%, -50%); z-index: 2; width: 256px; }
+    .fan:hover .ph.l { transform: translate(-122%, -46%) rotate(-12deg) scale(.86); }
+    .fan:hover .ph.r { transform: translate(22%, -46%) rotate(12deg) scale(.86); }
+    .chip { position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 16px; font-size: 14px; font-weight: 700;
+      color: #0E1A2B; background: rgba(255, 255, 255, .94); box-shadow: 0 18px 40px -12px rgba(0, 0, 0, .55); animation: float 6s ease-in-out infinite; white-space: nowrap; }
+    .chip i { font-style: normal; width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; font-size: 16px; }
+    .chip small { display: block; font-weight: 600; color: #5B6878; font-size: 12px; }
+    .chip.one { left: -4%; top: 16%; } .chip.one i { background: #D7F5EF; }
+    .chip.two { right: -2%; top: 58%; animation-delay: -2s; } .chip.two i { background: #DDE8FF; }
+    .chip.three { left: 4%; bottom: 6%; animation-delay: -4s; } .chip.three i { background: #FFEFD2; }
+    @keyframes float { 50% { transform: translateY(-10px); } }
+    .hero-fade { position: absolute; left: 0; right: 0; bottom: -1px; height: 90px; background: linear-gradient(transparent, var(--bg)); z-index: 1; pointer-events: none; }
+
+    @media (max-width: 920px) {
+      .hero .wrap { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 40px; }
+      .fan { height: 470px; }
+      .ph { width: 196px; } .ph.c { width: 214px; }
+    }
+    @media (max-width: 520px) {
+      .fan { height: 400px; }
+      .ph { width: 160px; border-radius: 30px; } .ph img { border-radius: 24px; } .ph.c { width: 180px; }
+      .chip { font-size: 12px; padding: 8px 10px; } .chip i { width: 24px; height: 24px; font-size: 13px; }
+      .chip.one { left: 0; } .chip.two { right: 0; }
+    }
+
+    /* ---------- Zahlen ---------- */
+    .stats { position: relative; z-index: 2; margin-top: -30px; }
+    .stats .row { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--surface); border: 1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow); }
+    .stat { padding: 22px 24px; border-left: 1px solid var(--border); }
+    .stat:first-child { border-left: 0; }
+    .stat b { display: block; font-size: 34px; letter-spacing: -.03em; line-height: 1.1; }
+    .stat span { color: var(--text-2); font-size: 14px; font-weight: 600; }
+    @media (max-width: 760px) { .stats .row { grid-template-columns: 1fr 1fr; } .stat:nth-child(3) { border-left: 0; } .stat:nth-child(n+3) { border-top: 1px solid var(--border); } }
+
+    /* ---------- Apps ---------- */
+    section { padding: 96px 0 0; }
+    .head { margin-bottom: 40px; }
+    .app { --c: var(--teal-bright); position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 28px; border-radius: 30px; overflow: hidden;
+      background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
+    .app.flip .info { order: 2; }
+    .app .info { padding: 44px 44px 40px; display: flex; flex-direction: column; }
+    .app .top { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .app .top img { width: 60px; height: 60px; border-radius: 16px; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .5); }
+    .app h3 { margin: 0; font-size: 30px; letter-spacing: -.02em; }
+    .app .for { color: var(--c); font-weight: 800; font-size: 14px; }
+    :root:not([data-theme="dark"]) .app.blue .for { color: #2F6FE0; }
+    .app p.what { color: var(--text-2); margin: 0 0 20px; font-size: 18px; }
+    .feats { list-style: none; margin: 0 0 28px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; }
+    .feats li { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; font-size: 15px; }
+    .feats li::before { content: "✓"; flex: none; margin-top: 2px; width: 20px; height: 20px; border-radius: 7px; background: var(--c);
+      color: #0B1524; font-size: 12px; font-weight: 900; display: grid; place-items: center; line-height: 1; }
+    .app .go { margin-top: auto; align-self: flex-start; display: inline-flex; gap: 10px; align-items: center; font-weight: 800; text-decoration: none;
+      color: var(--text); background: var(--muted); padding: 13px 20px; border-radius: 14px; transition: gap .2s, background .2s; }
+    .app .go:hover { gap: 16px; background: color-mix(in srgb, var(--c) 22%, var(--muted)); }
+    .app .stage { position: relative; min-height: 440px; overflow: hidden; background: radial-gradient(120% 90% at 30% 10%, color-mix(in srgb, var(--c) 55%, #0B1524), #0B1524 70%); }
+    .app .stage .ph { width: 220px; }
+    .app .stage .ph.s1 { transform: translate(-82%, -38%) rotate(-6deg); }
+    .app .stage .ph.s2 { transform: translate(-14%, -54%) rotate(5deg); z-index: 2; }
+    .app:hover .stage .ph.s1 { transform: translate(-86%, -40%) rotate(-8deg); }
+    .app:hover .stage .ph.s2 { transform: translate(-10%, -57%) rotate(7deg); }
+    .app.blue { --c: var(--blue); }
+    .app.gold { --c: var(--amber); }
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 1fr; } .app.flip .info { order: 0; }
+      .app .info { padding: 30px 24px 28px; } .app .stage { min-height: 380px; }
+      .app .stage .ph { width: 180px; }
+    }
+    @media (max-width: 440px) { .feats { grid-template-columns: 1fr; } }
+
+    /* Schätzmeister-Vorschau (ohne Screenshot) */
+    .guess { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px;
+      background: radial-gradient(110% 90% at 70% 0%, #4A37B8, #241B5A 55%, #150F38); }
+    .gcard { width: min(340px, 100%); background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .14); border-radius: 24px; padding: 24px; color: #fff;
+      backdrop-filter: blur(6px); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .6); }
+    .gcard .q { font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #FFC23D; }
+    .gcard h4 { font-size: 22px; margin: 6px 0 20px; line-height: 1.25; }
+    .gcard .val { font-size: 40px; font-weight: 900; letter-spacing: -.03em; }
+    .gcard .val small { font-size: 18px; color: #C9C3F2; margin-left: 4px; }
+    .gcard input { width: 100%; accent-color: #FFB22E; margin: 14px 0 6px; }
+    .gcard .scale { display: flex; justify-content: space-between; font-size: 12px; color: #C9C3F2; }
+    .gcard .res { margin-top: 16px; font-size: 14px; font-weight: 700; min-height: 1.5em; color: #FFD27A; }
+    .gcard button { margin-top: 12px; width: 100%; border: 0; border-radius: 14px; padding: 12px; font: inherit; font-weight: 800; background: #FFB22E; color: #241B5A; cursor: pointer; }
+    .soon { display: inline-block; margin-left: 8px; font-size: 12px; font-weight: 800; color: #B27300; background: #FFEFD2; padding: 3px 9px; border-radius: 99px; vertical-align: 6px; }
+
+    /* ---------- Werte ---------- */
+    .values { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .val-card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 26px 22px; transition: transform .2s, border-color .2s; }
+    .val-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .val-card .ic { width: 50px; height: 50px; border-radius: 15px; display: grid; place-items: center; font-size: 24px; margin-bottom: 16px;
+      background: color-mix(in srgb, var(--accent) 16%, transparent); }
+    .val-card h3 { margin: 0 0 6px; font-size: 19px; }
+    .val-card p { margin: 0; color: var(--text-2); font-size: 15px; }
+    @media (max-width: 900px) { .values { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .values { grid-template-columns: 1fr; } }
+
+    /* ---------- Kontakt-Band ---------- */
+    .cta-band { position: relative; overflow: hidden; isolation: isolate; border-radius: 30px; padding: 56px 48px; color: #fff;
+      background: linear-gradient(120deg, #0E1A2B, #0F3F4A 60%, #0F6E63); display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+    .cta-band::after { content: ""; position: absolute; z-index: -1; width: 420px; height: 420px; right: -120px; top: -160px; border-radius: 50%; background: #2CC9B0; filter: blur(90px); opacity: .45; }
+    .cta-band h2 { margin: 0 0 8px; }
+    .cta-band p { margin: 0; color: #B7C3D3; font-size: 18px; max-width: 32em; }
+    @media (max-width: 600px) { .cta-band { padding: 36px 24px; } }
+
+    /* ---------- Footer ---------- */
+    footer { margin-top: 96px; border-top: 1px solid var(--border); padding: 44px 0 52px; color: var(--text-2); font-size: 15px; }
+    footer .cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 28px; }
+    footer h4 { margin: 0 0 12px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--text); }
+    footer a { color: var(--text-2); text-decoration: none; display: block; padding: 3px 0; }
+    footer a:hover { color: var(--accent); }
+    footer .brand { font-weight: 800; color: var(--text); font-size: 18px; margin-bottom: 8px; }
+    footer .copy { margin-top: 32px; font-size: 13px; }
+    @media (max-width: 760px) { footer .cols { grid-template-columns: 1fr 1fr; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .glow, .chip { animation: none; }
+      .ph, .reveal { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+<nav class="pa-bar" aria-label="Planer-Apps">
+  <div class="pa-in">
+    <a class="pa-logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="paLogoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2CC9B0"/><stop offset="1" stop-color="#0F9F8C"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#paLogoG)"/><path d="M9 16.5l4.5 4.5L23 11" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Planer-Apps</span></a>
+    <details class="pa-apps">
+      <summary>Alle Apps</summary>
+      <div class="pa-menu">
+        <a href="index.html#apps"><span class="pa-all">◆</span><strong>Übersicht</strong><small>Alle Planer-Apps auf einen Blick</small></a>
+        <hr>
+        <a href="azubiplaner/index.html"><img src="img/azubiplaner.png" alt=""><strong>AzubiPlaner</strong><small>Für Auszubildende</small></a>
+        <a href="index.html#schulplaner"><img src="img/schulplaner.png" alt=""><strong>SchulPlaner<span class="pa-soon">bald</span></strong><small>Für Schülerinnen und Schüler</small></a>
+        <a href="index.html#schaetzmeister"><img src="img/schaetzmeister.png" alt=""><strong>Schätzmeister<span class="pa-soon">bald</span></strong><small>Das Schätzspiel für zwischendurch</small></a>
+      </div>
+    </details>
+    <div class="pa-right"><a class="pa-link" href="kontakt.html">Kontakt</a></div>
+  </div>
+</nav>
+
+
+<header class="hero">
+  <div class="glow a"></div><div class="glow b"></div><div class="glow c"></div>
+  <div class="wrap">
+    <div>
+      <span class="pill reveal"><b>Neu</b> Der AzubiPlaner ist im Test</span>
+      <h1 class="reveal d1">Schule und Ausbildung –<br><span class="grad">endlich im Griff.</span></h1>
+      <p class="sub reveal d2">Aufgeräumte Planer-Apps für Schülerinnen, Schüler und Auszubildende. Alles Wichtige an einem Ort – ohne Tracking, die Planer ganz ohne Werbung.</p>
+      <div class="btns reveal d3">
+        <a class="btn primary" href="#apps">Apps entdecken <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="kontakt.html">Kontakt aufnehmen</a>
+      </div>
+      <div class="trust reveal d3"><span>Planer werbefrei</span><span>Kein Tracking</span><span>Geht ohne Konto</span></div>
+    </div>
+    <div class="fan" id="fan" aria-hidden="true">
+      <div class="ph l"><img src="azubiplaner/img/dark_07_noten.png" alt=""></div>
+      <div class="ph c"><img src="azubiplaner/img/light_01_heute.png" alt=""></div>
+      <div class="ph r"><img src="azubiplaner/img/dark_10_pruefungen.png" alt=""></div>
+      <div class="chip one"><i>✓</i><span>Berichtsheft fertig<small>als PDF exportiert</small></span></div>
+      <div class="chip two"><i>📈</i><span>Notenschnitt 1,8<small>Wunschnote in Reichweite</small></span></div>
+      <div class="chip three"><i>🔥</i><span>12 Tage Lern-Serie<small>weiter so!</small></span></div>
+    </div>
+  </div>
+  <div class="hero-fade"></div>
+</header>
+
+<div class="stats wrap">
+  <div class="row reveal">
+    <div class="stat"><b>3</b><span>Apps für Schule, Ausbildung und Freizeit</span></div>
+    <div class="stat"><b>0</b><span>Werbung in unseren Planern</span></div>
+    <div class="stat"><b>0</b><span>Tracker und Analyse-Dienste</span></div>
+    <div class="stat"><b>16</b><span>Bundesländer mit Ferien und Feiertagen</span></div>
+  </div>
+</div>
+
+<main>
+  <section id="apps" class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Unsere Apps</span>
+      <h2>Eine App für jeden Abschnitt.</h2>
+      <p class="lead">Von der 5. Klasse bis zur Abschlussprüfung – jede App ist genau auf ihren Alltag zugeschnitten.</p>
+    </div>
+
+    <article class="app reveal">
+      <div class="info">
+        <div class="top"><img src="img/azubiplaner.png" alt=""><div><h3>AzubiPlaner</h3><span class="for">Für Auszubildende</span></div></div>
+        <p class="what">Berufsschule und Betrieb in einer App – vom Berichtsheft bis zur Abschlussprüfung.</p>
+        <ul class="feats">
+          <li>Berichtsheft als PDF</li><li>Noten &amp; Wunschnote</li>
+          <li>Prüfungsplan mit Lernplan</li><li>Zeitkonto &amp; Urlaub</li>
+          <li>Lernkarten mit Bildern</li><li>Plan-Assistent für Blockunterricht</li>
+        </ul>
+        <a class="go" href="azubiplaner/index.html">Zum AzubiPlaner <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="stage">
+        <div class="ph s1"><img src="azubiplaner/img/dark_17_berichtsheft.png" alt="Berichtsheft im AzubiPlaner" loading="lazy"></div>
+        <div class="ph s2"><img src="azubiplaner/img/light_01_heute.png" alt="Startseite des AzubiPlaners" loading="lazy"></div>
+      </div>
+    </article>
+
+    <article class="app blue flip reveal" id="schulplaner">
+      <div class="info">
+        <div class="top"><img src="img/schulplaner.png" alt=""><div><h3>SchulPlaner<span class="soon">Bald</span></h3><span class="for">Für Schülerinnen und Schüler</span></div></div>
+        <p class="what">Hausaufgaben, Stundenplan und Noten – übersichtlich, offline und ohne Konto.</p>
+        <ul class="feats">
+          <li>Hausaufgabenheft</li><li>Stundenplan mit A/B-Wochen</li>
+          <li>Noten je Halbjahr</li><li>Zeugnis-Übersicht</li>
+          <li>Klassenarbeiten</li><li>Ferien-Countdown</li>
+        </ul>
+        <span class="go" style="cursor:default">In Arbeit – kommt nach dem AzubiPlaner</span>
+      </div>
+      <div class="stage">
+        <div class="ph s1"><img src="img/schulplaner_noten.png" alt="Noten im SchulPlaner" loading="lazy"></div>
+        <div class="ph s2"><img src="img/schulplaner_heute.png" alt="Startseite des SchulPlaners" loading="lazy"></div>
+      </div>
+    </article>
+
+    <article class="app gold reveal" id="schaetzmeister">
+      <div class="info">
+        <div class="top"><img src="img/schaetzmeister.png" alt=""><div><h3>Schätzmeister<span class="soon">Bald</span></h3><span class="for">Das Schätzspiel für zwischendurch</span></div></div>
+        <p class="what">Wie hoch, wie alt, wie viele? Schätze, so nah du kannst – je näher, desto mehr Punkte.</p>
+        <ul class="feats">
+          <li>Über 2.500 Fragen</li><li>Tageschallenge</li>
+          <li>Blitzrunde &amp; Höher oder tiefer</li><li>Erfolge und Serien</li>
+        </ul>
+        <span class="go" style="cursor:default">In Arbeit – probier rechts schon mal</span>
+      </div>
+      <div class="stage">
+        <div class="guess">
+          <div class="gcard">
+            <div class="q">Schätzfrage</div>
+            <h4>Wie hoch ist der Eiffelturm (mit Antennen)?</h4>
+            <div class="val"><span id="gv">200</span><small>m</small></div>
+            <input id="gr" type="range" min="50" max="600" step="5" value="200" aria-label="Deine Schätzung in Metern">
+            <div class="scale"><span>50 m</span><span>600 m</span></div>
+            <button id="gb" type="button">Schätzung abgeben</button>
+            <div class="res" id="gres" role="status"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section id="werte" class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Warum Planer-Apps?</span>
+      <h2>Gemacht für dich – nicht für Werbekunden.</h2>
+    </div>
+    <div class="values">
+      <div class="val-card reveal"><div class="ic">🚫</div><h3>Planer ohne Werbung</h3><p>AzubiPlaner und SchulPlaner: keine Banner, keine Videos, kein „Premium freischalten, um Werbung loszuwerden“.</p></div>
+      <div class="val-card reveal d1"><div class="ic">🕶️</div><h3>Kein Tracking</h3><p>Keine Analyse-Dienste, keine Werbe-IDs. Auch diese Website nicht.</p></div>
+      <div class="val-card reveal d2"><div class="ic">🔒</div><h3>Deine Daten</h3><p>Nur auf dem Handy oder – wenn du willst – sicher in der Cloud in der EU.</p></div>
+      <div class="val-card reveal d3"><div class="ic">💬</div><h3>Mit dir gebaut</h3><p>Viele Funktionen kamen aus Wünschen von Testern. Schreib uns deine Idee!</p></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="cta-band reveal">
+      <div>
+        <h2>Frage, Idee oder Fehler gefunden?</h2>
+        <p>Schreib uns über das Kontaktformular – wir lesen jede Nachricht und antworten per E-Mail.</p>
+      </div>
+      <a class="btn primary" href="kontakt.html">Zum Kontaktformular <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><div class="brand">Planer-Apps</div>Apps, die Schule und Ausbildung leichter machen. Ohne Tracking, die Planer werbefrei.</div>
+      <div><h4>Apps</h4><a href="azubiplaner/index.html">AzubiPlaner</a><a href="#schulplaner">SchulPlaner (bald)</a><a href="#schaetzmeister">Schätzmeister (bald)</a></div>
+      <div><h4>Kontakt</h4><a href="kontakt.html">Kontaktformular</a><a href="mailto:azubiplaner.app@gmail.com">E-Mail schreiben</a></div>
+      <div><h4>Rechtliches</h4><a href="impressum.html">Impressum</a><a href="azubiplaner/datenschutz.html">Datenschutz</a><a href="azubiplaner/nutzungsbedingungen.html">Nutzungsbedingungen</a></div>
+    </div>
+    <div class="copy">© 2026 Planer-Apps · Google Play und das Google Play-Logo sind Marken von Google LLC.</div>
+  </div>
+</footer>
+
+<script src="site.js" defer></script>
+<script>
+  // Schätzfrage zum Ausprobieren (Eiffelturm: 330 m mit Antennen)
+  (function () {
+    var r = document.getElementById('gr'), v = document.getElementById('gv'), b = document.getElementById('gb'), res = document.getElementById('gres');
+    r.addEventListener('input', function () { v.textContent = r.value; res.textContent = ''; });
+    b.addEventListener('click', function () {
+      var g = +r.value, d = Math.abs(g - 330), pts = Math.round(1000 * Math.min(g, 330) / Math.max(g, 330));
+      res.textContent = (d <= 10 ? 'Volltreffer! ' : d <= 40 ? 'Sehr nah! ' : 'Nicht ganz. ') + 'Richtig: 330 m · ' + pts + ' Punkte';
+    });
+  })();
+  // Handys folgen leicht der Maus (nicht bei „Bewegung reduzieren“)
+  (function () {
+    var fan = document.getElementById('fan');
+    if (!fan || matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(hover: none)').matches) return;
+    document.querySelector('.hero').addEventListener('mousemove', function (e) {
+      var x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+      fan.style.transform = 'rotateY(' + (x * 8) + 'deg) rotateX(' + (-y * 6) + 'deg)';
+    });
+  })();
+</script>
+</body>
+</html>

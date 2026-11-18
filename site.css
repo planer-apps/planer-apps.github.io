@@ -1,0 +1,45 @@
+/* Planer-Apps – gemeinsame Leiste für ALLE Seiten (Übersicht, App-Seiten, Rechtliches, Kontakt).
+   Wird von build.ps1 in die App-Seiten eingefügt. Alle Klassen beginnen mit "pa-", damit nichts kollidiert. */
+.pa-bar {
+  position: relative; z-index: 50;
+  background: linear-gradient(90deg, #0B1524, #0E2433 60%, #0F3240);
+  color: #EEF2F7; font: 600 15px/1 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+}
+.pa-bar * { box-sizing: border-box; }
+.pa-in { max-width: 1120px; margin: 0 auto; padding: 0 20px; height: 48px; display: flex; align-items: center; gap: 6px; }
+.pa-logo { display: inline-flex; align-items: center; gap: 9px; color: #fff; text-decoration: none; font-weight: 800; letter-spacing: -.01em; margin-right: 10px; }
+.pa-logo svg { width: 24px; height: 24px; display: block; }
+.pa-link, .pa-apps > summary {
+  color: rgba(238, 242, 247, .78); text-decoration: none; padding: 8px 12px; border-radius: 10px; cursor: pointer;
+  transition: background .15s, color .15s; list-style: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.pa-apps > summary::-webkit-details-marker { display: none; }
+.pa-link:hover, .pa-apps > summary:hover, .pa-apps[open] > summary { color: #fff; background: rgba(255, 255, 255, .08); }
+.pa-link[aria-current="page"] { color: #2CC9B0; }
+/* Gegen Stile der jeweiligen Seite absichern (z. B. FAQ-„details“ oder globale Knöpfe) */
+.pa-bar details.pa-apps { position: relative; background: none; border: 0; padding: 0; margin: 0; border-radius: 0; box-shadow: none; }
+.pa-bar summary { font-weight: 600; }
+.pa-apps > summary::after { content: ""; width: 7px; height: 7px; border: solid currentColor; border-width: 0 2px 2px 0; transform: translateY(-2px) rotate(45deg); transition: transform .2s; }
+.pa-apps[open] > summary::after { transform: translateY(1px) rotate(-135deg); }
+.pa-menu {
+  position: absolute; left: 0; top: calc(100% + 8px); width: 300px; padding: 8px;
+  background: #122033; border: 1px solid #22354F; border-radius: 18px;
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, .55); animation: pa-pop .18s ease-out;
+}
+@keyframes pa-pop { from { opacity: 0; transform: translateY(-6px) scale(.98); } }
+.pa-menu a { display: grid; grid-template-columns: 40px 1fr; gap: 0 12px; align-items: center; padding: 10px; border-radius: 12px; color: #EEF2F7; text-decoration: none; line-height: 1.25; }
+.pa-menu a:hover { background: #1A2B42; }
+.pa-menu img, .pa-menu .pa-all { grid-row: span 2; width: 40px; height: 40px; border-radius: 11px; }
+.pa-menu .pa-all { display: grid; place-items: center; background: linear-gradient(135deg, #2CC9B0, #0F9F8C); color: #0E1A2B; font-size: 18px; }
+.pa-menu small { color: #9AA8BA; font-weight: 500; font-size: 13px; }
+.pa-menu .pa-soon { margin-left: 6px; font-size: 11px; font-weight: 700; color: #FFC23D; background: rgba(255, 194, 61, .14); padding: 2px 7px; border-radius: 99px; vertical-align: 1px; }
+.pa-menu hr { border: 0; border-top: 1px solid #22354F; margin: 6px 4px; }
+.pa-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.pa-bar .pa-theme { border: 1px solid rgba(255, 255, 255, .16); background: transparent; color: #EEF2F7; border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer; width: auto; margin: 0; box-shadow: none; }
+.pa-bar .pa-theme:hover { background: rgba(255, 255, 255, .08); }
+@media (max-width: 340px) { .pa-logo span { display: none; } }
+@media (max-width: 520px) {
+  .pa-in { padding: 0 12px; }
+  .pa-menu { position: fixed; left: 12px; right: 12px; top: 56px; width: auto; }
+}

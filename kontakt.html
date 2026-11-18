@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -112,7 +112,6 @@
       // Jeder darf nur SENDEN, lesen dürfen nur Admins. Siehe docs/supabase_kontakt.sql.
       var URL = 'https://puoyspztavdkwrmhdsio.supabase.co/rest/v1/contact_messages';
       var KEY = 'sb_publishable_cVo28TV9g1TDlOONPWqn3g_Jj3bhKNY';
-      try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
       var form = document.getElementById('contact'), out = document.getElementById('result'), btn = document.getElementById('send');
       // Vorauswahl über ?app=azubiplaner (Link aus der App)
       var pre = new URLSearchParams(location.search).get('app');

@@ -1,7 +1,19 @@
 /* Planer-Apps – gemeinsame Leiste für ALLE Seiten (Übersicht, App-Seiten, Rechtliches, Kontakt).
    Wird von build.ps1 in die App-Seiten eingefügt. Alle Klassen beginnen mit "pa-", damit nichts kollidiert. */
+
+/* Die ganze Website ist immer dunkel (Wunsch 18.11.). Höhere Spezifität als die hellen/dunklen Farben der
+   einzelnen Seiten – so gilt Dunkel überall, egal was das System oder eine alte Einstellung sagt. */
+html:root, html:root[data-theme] {
+  color-scheme: dark;
+  --bg: #0A1422; --surface: #122033; --muted: #1A2B42; --border: #22354F;
+  --text: #EEF2F7; --text-2: #9AA8BA; --accent: #2CC9B0;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 18px 40px -24px rgba(0, 0, 0, .8);
+}
+.theme-btn, #themeBtn, .pa-theme { display: none !important; }
+
+/* Leiste bleibt beim Scrollen oben stehen; die eigene Kopfzeile der App-Seiten rutscht direkt darunter. */
 .pa-bar {
-  position: relative; z-index: 50;
+  position: sticky; top: 0; z-index: 50;
   background: linear-gradient(90deg, #0B1524, #0E2433 60%, #0F3240);
   color: #EEF2F7; font: 600 15px/1 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   border-bottom: 1px solid rgba(255, 255, 255, .06);
@@ -36,15 +48,7 @@
 .pa-menu .pa-soon { margin-left: 6px; font-size: 11px; font-weight: 700; color: #FFC23D; background: rgba(255, 194, 61, .14); padding: 2px 7px; border-radius: 99px; vertical-align: 1px; }
 .pa-menu hr { border: 0; border-top: 1px solid #22354F; margin: 6px 4px; }
 .pa-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
-.pa-bar .pa-theme { border: 1px solid rgba(255, 255, 255, .16); background: transparent; color: #EEF2F7; border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer; width: auto; margin: 0; box-shadow: none; }
-.pa-bar .pa-theme:hover { background: rgba(255, 255, 255, .08); }
-/* Sanfter Übergang beim Wechsel Hell ↔ Dunkel (nur kurz während des Umschaltens aktiv, siehe site.js) */
-html.pa-fade, html.pa-fade *, html.pa-fade *::before, html.pa-fade *::after {
-  transition: background-color .5s ease, color .5s ease, border-color .5s ease, fill .5s ease, stroke .5s ease,
-    box-shadow .5s ease, outline-color .5s ease !important;
-}
-@media (prefers-reduced-motion: reduce) { html.pa-fade, html.pa-fade * { transition: none !important; } }
-
+header.top { top: 48px !important; }
 @media (max-width: 340px) { .pa-logo span { display: none; } }
 @media (max-width: 520px) {
   .pa-in { padding: 0 12px; }

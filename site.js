@@ -9,35 +9,9 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menu.open = false; });
   }
 
-  // Seiten ohne eigenen Design-Knopf bekommen einen in der Leiste.
-  try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
-
-  // Sanfter Übergang beim Umschalten Hell ↔ Dunkel – egal welcher Knopf (auch der eigene der App-Seiten)
-  // oder ob das System-Design wechselt. Die Klasse liegt nur kurz an, damit sonst nichts träge wirkt.
-  var fadeTimer;
-  function fade() {
-    root.classList.add('pa-fade');
-    clearTimeout(fadeTimer);
-    fadeTimer = setTimeout(function () { root.classList.remove('pa-fade'); }, 600);
-  }
-  new MutationObserver(fade).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-  try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fade); } catch (e) {}
-  if (!document.getElementById('themeBtn')) {
-    var right = document.querySelector('.pa-right');
-    if (right) {
-      var b = document.createElement('button');
-      b.type = 'button'; b.className = 'pa-theme'; b.textContent = '◐'; b.setAttribute('aria-label', 'Hell oder dunkel');
-      b.addEventListener('click', function () {
-        var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme') === 'dark'
-          : matchMedia('(prefers-color-scheme: dark)').matches;
-        var next = dark ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        try { localStorage.setItem('theme', next); } catch (e) {}
-        document.dispatchEvent(new Event('pa-theme'));
-      });
-      right.appendChild(b);
-    }
-  }
+  // Die Website ist immer dunkel (Wunsch 18.11.). Eine früher gespeicherte Wahl „hell“ wird vergessen.
+  root.setAttribute('data-theme', 'dark');
+  try { localStorage.removeItem('theme'); } catch (e) {}
 
   // Sanftes Einblenden beim Scrollen (nur wenn Animationen erlaubt sind).
   var items = document.querySelectorAll('.reveal');

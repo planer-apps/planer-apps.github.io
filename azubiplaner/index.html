@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AzubiPlaner – Ausbildung im Griff</title>
+  <meta name="description" content="AzubiPlaner: Berufsschule, Betrieb, Berichtsheft, Noten und Prüfungen in einer App für Auszubildende. Werbefrei.">
+  <link rel="icon" href="img/icon.png">
+  <!-- Bewusst ohne externe Schriften, Skripte oder Tracker: nichts wird an Dritte übertragen. -->
+  <style>
+    :root {
+      --navy: #0E1A2B; --navy-soft: #16263C; --teal: #0F9F8C; --teal-bright: #2CC9B0;
+      --bg: #F4F6F9; --surface: #FFFFFF; --muted: #EBEFF4; --border: #E1E6ED;
+      --text: #0E1A2B; --text-2: #5B6878; --accent: var(--teal);
+      --radius: 20px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0A1422; --surface: #122033; --muted: #1A2B42; --border: #22354F;
+        --text: #EEF2F7; --text-2: #9AA8BA; --accent: var(--teal-bright);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0A1422; --surface: #122033; --muted: #1A2B42; --border: #22354F;
+      --text: #EEF2F7; --text-2: #9AA8BA; --accent: var(--teal-bright);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+    header.top .wrap { display: flex; align-items: center; gap: 12px; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; color: var(--text); text-decoration: none; }
+    .brand img { width: 34px; height: 34px; border-radius: 9px; }
+    nav.links { margin-left: auto; display: flex; gap: 20px; }
+    nav.links a { color: var(--text-2); text-decoration: none; font-weight: 600; font-size: 15px; }
+    nav.links a:hover { color: var(--text); }
+    .theme-btn { border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+    @media (max-width: 720px) { nav.links { display: none; } .theme-btn { margin-left: auto; } }
+
+    .hero { padding: 64px 0 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+    .hero h1 { font-size: clamp(36px, 5.4vw, 60px); line-height: 1.05; margin: 0 0 18px; letter-spacing: -0.02em; }
+    .hero h1 span { color: var(--accent); }
+    .hero p.lead { font-size: 20px; color: var(--text-2); margin: 0 0 26px; max-width: 34em; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+    .badge { background: var(--muted); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 600; color: var(--text-2); }
+    .cta { display: inline-flex; align-items: center; gap: 10px; background: var(--navy); color: #fff; border-radius: 14px; padding: 14px 22px; font-weight: 700; text-decoration: none; }
+    :root[data-theme="dark"] .cta { background: var(--teal-bright); color: var(--navy); }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta { background: var(--teal-bright); color: var(--navy); } }
+    .cta-note { display: block; margin-top: 10px; font-size: 14px; color: var(--text-2); }
+    .phone { width: min(320px, 78vw); margin: 0 auto; border-radius: 42px; padding: 10px; background: #0b1320; box-shadow: 0 30px 60px -20px rgba(14, 26, 43, .45); }
+    .phone img { display: block; width: 100%; border-radius: 33px; aspect-ratio: 1080 / 2340; object-fit: cover; background: var(--muted); }
+    @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 40px; } }
+
+    section { padding: 56px 0; }
+    h2 { font-size: clamp(28px, 3.6vw, 40px); margin: 0 0 12px; letter-spacing: -0.01em; }
+    p.sub { color: var(--text-2); margin: 0 0 32px; max-width: 40em; }
+
+    /* Interaktive Vorschau */
+    .tour { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: center; }
+    .tour-list { display: grid; gap: 10px; }
+    .tour-item { text-align: left; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 16px; padding: 16px 18px; font: inherit; cursor: pointer; transition: border-color .15s, transform .15s; }
+    .tour-item strong { display: block; font-size: 18px; }
+    .tour-item span { color: var(--text-2); font-size: 15px; }
+    .tour-item[aria-selected="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent); }
+    .tour-item:hover { transform: translateY(-1px); }
+    @media (max-width: 860px) { .tour { grid-template-columns: 1fr; } .tour .phone { order: -1; } }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+    .card .ico { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-size: 22px; margin-bottom: 12px; background: var(--muted); }
+    .card h3 { margin: 0 0 6px; font-size: 19px; }
+    .card p { margin: 0; color: var(--text-2); font-size: 16px; }
+
+    .wide img { width: 100%; border-radius: 18px; border: 1px solid var(--border); display: block; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+    @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+    ul.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    ul.checks li { padding-left: 30px; position: relative; }
+    ul.checks li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 13px; display: grid; place-items: center; font-weight: 800; }
+
+    details { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; margin-bottom: 10px; }
+    summary { cursor: pointer; font-weight: 700; }
+    details p { color: var(--text-2); margin: 10px 0 0; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 0 48px; color: var(--text-2); font-size: 14px; }
+  </style>
+  <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<nav class="pa-bar" aria-label="Planer-Apps">
+  <div class="pa-in">
+    <a class="pa-logo" href="../index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="paLogoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2CC9B0"/><stop offset="1" stop-color="#0F9F8C"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#paLogoG)"/><path d="M9 16.5l4.5 4.5L23 11" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Planer-Apps</span></a>
+    <details class="pa-apps">
+      <summary>Alle Apps</summary>
+      <div class="pa-menu">
+        <a href="../index.html#apps"><span class="pa-all">◆</span><strong>Übersicht</strong><small>Alle Planer-Apps auf einen Blick</small></a>
+        <hr>
+        <a href="../azubiplaner/index.html"><img src="../img/azubiplaner.png" alt=""><strong>AzubiPlaner</strong><small>Für Auszubildende</small></a>
+        <a href="../index.html#schulplaner"><img src="../img/schulplaner.png" alt=""><strong>SchulPlaner<span class="pa-soon">bald</span></strong><small>Für Schülerinnen und Schüler</small></a>
+        <a href="../index.html#schaetzmeister"><img src="../img/schaetzmeister.png" alt=""><strong>Schätzmeister<span class="pa-soon">bald</span></strong><small>Das Schätzspiel für zwischendurch</small></a>
+      </div>
+    </details>
+    <div class="pa-right"><a class="pa-link" href="../kontakt.html">Kontakt</a></div>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/icon.png" alt="">AzubiPlaner</a>
+    <nav class="links">
+      <a href="#vorschau">Vorschau</a>
+      <a href="#funktionen">Funktionen</a>
+      <a href="#datenschutz">Daten</a>
+      <a href="#fragen">Fragen</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Hell oder dunkel">◐ Design</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Deine Ausbildung.<br><span>Endlich im Griff.</span></h1>
+      <p class="lead">Berufsschule, Betrieb, Berichtsheft, Noten und Prüfungen – in einer App, die für Azubis gemacht ist. Ohne Werbung, ohne Papierchaos.</p>
+      <div class="badges">
+        <span class="badge">Werbefrei</span>
+        <span class="badge">Feiertage &amp; Ferien aller 16 Bundesländer</span>
+        <span class="badge">Hell &amp; dunkel</span>
+        <span class="badge">Auch offline</span>
+      </div>
+      <a class="cta" href="#bald">Bald im Google Play Store</a>
+      <span class="cta-note">Aktuell im Test. Android zuerst – iPhone und eine Web-Version sind geplant.</span>
+    </div>
+    <div class="phone"><img id="heroShot" src="img/light_01_heute.png" data-light="img/light_01_heute.png" data-dark="img/dark_01_heute.png" alt="Startseite des AzubiPlaners mit dem heutigen Tag, Prüfungs-Countdown und Aufgaben"></div>
+  </div>
+
+  <section id="vorschau">
+    <h2>Klick dich durch</h2>
+    <p class="sub">So sieht der AzubiPlaner aus – wähle links einen Bereich.</p>
+    <div class="tour">
+      <div class="tour-list" role="tablist" aria-label="Bereiche der App">
+        <button class="tour-item" role="tab" aria-selected="true" data-img="img/light_01_heute.png"><strong>Heute</strong><span>Was heute ansteht: Schule oder Arbeit, Aufgaben, nächste Prüfung.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/light_03_kalender.png"><strong>Kalender</strong><span>Feiertage und Schulferien sind schon drin. Berufsschule fällt in den Ferien automatisch aus.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/dark_26_plan_assistent.png"><strong>Plan-Assistent</strong><span>Schule und Arbeit im Rhythmus, Blockunterricht oder Urlaub – für Wochen auf einmal.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/light_21_fach_verlauf_wunschnote.png"><strong>Noten</strong><span>Schnitt, Tendenz und was du für deine Wunschnote noch brauchst.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/dark_17_berichtsheft.png"><strong>Berichtsheft</strong><span>Woche für Woche ausfüllen und als PDF abgeben.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/light_12_lernen.png"><strong>Lernkarten</strong><span>Wiederholen, was schwerfällt – mit Lern-Serie.</span></button>
+      </div>
+      <div class="phone"><img id="tourShot" src="img/light_01_heute.png" alt="Vorschau des gewählten Bereichs"></div>
+    </div>
+  </section>
+
+  <section id="funktionen">
+    <h2>Alles, was im Azubi-Alltag zählt</h2>
+    <p class="sub">Du entscheidest, welche Bereiche du siehst – nur Schule, nur Betrieb oder beides.</p>
+    <div class="grid">
+      <div class="card"><div class="ico">📅</div><h3>Kalender &amp; Plan-Assistent</h3><p>Schule, Arbeit, Urlaub, Krankheit und Termine. Mit Vorlagen wie „Mo, Mi, Fr Schule“ oder wechselnden Wochen.</p></div>
+      <div class="card"><div class="ico">📱</div><h3>Handy-Kalender</h3><p>Auf Wunsch erscheinen alle Termine im Kalender deines Handys – und deine anderen Kalender in der App.</p></div>
+      <div class="card"><div class="ico">🎓</div><h3>Noten &amp; Prüfungen</h3><p>Fächer, Lernfelder, Wunschnote, Countdown bis zur Prüfung und Lernziele zum Abhaken.</p></div>
+      <div class="card"><div class="ico">📘</div><h3>Berichtsheft</h3><p>Einträge mit Vorschlägen, Abteilung und Stunden – fertig als PDF.</p></div>
+      <div class="card"><div class="ico">⏱️</div><h3>Zeitkonto &amp; Netto</h3><p>Überstunden, Urlaubstage und ein Netto-Rechner für deine Vergütung mit deiner Krankenkasse.</p></div>
+      <div class="card"><div class="ico">🔔</div><h3>Erinnerungen</h3><p>An Termine, Aufgaben und Prüfungen – höchstens ein Hinweis pro Tag, kein Spam.</p></div>
+      <div class="card"><div class="ico">🗂️</div><h3>Lernkarten</h3><p>Eigene Karten anlegen, wiederholen und dranbleiben.</p></div>
+      <div class="card"><div class="ico">📊</div><h3>Rückblick</h3><p>Woche, Monat, Ausbildungsjahr oder die ganze Ausbildung – auch als PDF.</p></div>
+      <div class="card"><div class="ico">🧩</div><h3>Widgets</h3><p>Heute, nächste Prüfung, Aufgaben und mehr direkt auf dem Startbildschirm.</p></div>
+    </div>
+  </section>
+
+  <section class="split">
+    <div>
+      <h2>Auch auf dem Tablet</h2>
+      <p class="sub">Im Querformat und auf großen Bildschirmen wandert die Navigation an die Seite – alles bleibt gut lesbar.</p>
+      <ul class="checks">
+        <li>Hoch- und Querformat</li>
+        <li>Helles und dunkles Design</li>
+        <li>Bundesland einfach auf der Karte antippen</li>
+      </ul>
+    </div>
+    <div class="wide"><img src="img/light_29_tablet_heute.png" alt="AzubiPlaner auf einem Tablet im Querformat"></div>
+  </section>
+
+  <section id="datenschutz" class="split">
+    <div class="phone"><img src="img/light_27_bundesland_karte.png" alt="Auswahl des Bundeslands auf einer Deutschlandkarte"></div>
+    <div>
+      <h2>Deine Daten, deine Wahl</h2>
+      <p class="sub">Beim Start entscheidest du, wo deine Daten liegen – und kannst das jederzeit ändern.</p>
+      <ul class="checks">
+        <li><strong>Cloud-Konto:</strong> Daten auf allen Geräten, gesichert auf Servern in der EU.</li>
+        <li><strong>Nur auf dem Handy:</strong> nichts verlässt dein Gerät.</li>
+        <li><strong>Automatische Sicherung</strong> in eine Datei deiner Wahl, z. B. in deinem Cloud-Speicher.</li>
+        <li>Keine Werbung, kein Verkauf von Daten.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="fragen">
+    <h2>Häufige Fragen</h2>
+    <details><summary>Was kostet der AzubiPlaner?</summary><p>Die App ist kostenlos und werbefrei.</p></details>
+    <details><summary>Für welche Ausbildungen ist die App?</summary><p>Für alle dualen Ausbildungen in Deutschland. Du wählst deinen Beruf aus der Liste aller Ausbildungsberufe oder trägst ihn selbst ein.</p></details>
+    <details><summary>Gibt es die App fürs iPhone oder den PC?</summary><p>Zuerst erscheint die Android-Version. Eine Version fürs iPhone und eine Web-Version für den PC sind geplant.</p></details>
+    <details><summary>Muss ich ein Konto anlegen?</summary><p>Nein. Du kannst alles nur auf deinem Handy speichern. Ein Konto brauchst du nur, wenn du deine Daten auf mehreren Geräten nutzen möchtest.</p></details>
+  </section>
+
+  <section id="bald">
+    <div class="card" style="text-align:center; padding:40px 24px">
+      <h2>Bald verfügbar</h2>
+      <p class="sub" style="margin:0 auto">Der AzubiPlaner ist gerade im Test und erscheint demnächst im Google Play Store.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><a href="../impressum.html">Impressum</a> · <a href="../index.html">Alle Apps</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> · <a href="konto-loeschen.html">Konto löschen</a><br>© AzubiPlaner · Karte: Natural Earth (gemeinfrei)</div>
+</footer>
+
+<script>
+  // Design umschalten (merkt sich die Wahl nur in diesem Browser)
+  const root = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  const hero = document.getElementById('heroShot');
+  const prefersDark = matchMedia('(prefers-color-scheme: dark)');
+  function isDark() { return root.dataset.theme ? root.dataset.theme === 'dark' : prefersDark.matches; }
+  function applyShots() { hero.src = isDark() ? hero.dataset.dark : hero.dataset.light; }
+  try { const saved = localStorage.getItem('theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+  applyShots();
+  prefersDark.addEventListener('change', applyShots);
+  btn.addEventListener('click', () => {
+    root.dataset.theme = isDark() ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+    applyShots();
+  });
+
+  // Interaktive Vorschau
+  const shot = document.getElementById('tourShot');
+  const items = [...document.querySelectorAll('.tour-item')];
+  items.forEach((b) => b.addEventListener('click', () => {
+    items.forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    shot.src = b.dataset.img;
+    shot.alt = 'Vorschau: ' + b.querySelector('strong').textContent;
+  }));
+</script>
+<script src="../site.js" defer></script>
+</body>
+</html>

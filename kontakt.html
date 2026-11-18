@@ -76,7 +76,7 @@
     <span class="eyebrow">Kontakt</span>
     <h1>Schreib uns.</h1>
     <p class="sub">Fragen, Fehler oder Ideen? Schreib uns – wir antworten per E-Mail. Lieber direkt per Mail:
-      <a href="mailto:azubiplaner.app@gmail.com">azubiplaner.app@gmail.com</a></p>
+      <a href="mailto:planer.apps.dev@gmail.com">planer.apps.dev@gmail.com</a></p>
 
     <form id="contact" novalidate>
       <label>Worum geht es?
@@ -137,7 +137,7 @@
         }).catch(function (err) {
           var m = String(err && err.message || '');
           show(false, m.indexOf('Zu viele') >= 0 || m.indexOf('zu viele') >= 0 ? m
-            : 'Das hat leider nicht geklappt. Bitte schreib uns direkt an azubiplaner.app@gmail.com.');
+            : 'Das hat leider nicht geklappt. Bitte schreib uns direkt an planer.apps.dev@gmail.com.');
         }).finally(function () { btn.disabled = false; btn.textContent = 'Nachricht senden'; });
       });
     })();

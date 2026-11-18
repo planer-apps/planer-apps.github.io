@@ -73,9 +73,17 @@
 
     /* Handy-Fächer */
     .fan { position: relative; height: 560px; perspective: 1400px; }
-    .ph { position: absolute; top: 50%; left: 50%; width: 236px; border-radius: 38px; padding: 8px; background: #05090F;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 40px 80px -24px rgba(0, 0, 0, .8); transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
-    .ph img { display: block; width: 100%; aspect-ratio: 1080 / 2340; object-fit: cover; border-radius: 31px; background: #1A2B42; }
+    /* Handy-Rahmen: Metallkante, Kamera-Loch oben mittig, Seitentasten */
+    .ph { position: absolute; top: 50%; left: 50%; width: 236px; border-radius: 40px; padding: 9px;
+      background: linear-gradient(145deg, #6B778A 0%, #2B3445 20%, #161C27 50%, #2B3445 80%, #5A6679 100%);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28), inset 0 0 0 3px #0A0E15, 0 40px 80px -24px rgba(0, 0, 0, .8);
+      transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+    .ph::before { content: ""; position: absolute; z-index: 2; top: 19px; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #4A5D80 0 18%, #0B1220 40%, #000 70%); box-shadow: 0 0 0 2px rgba(0, 0, 0, .55); }
+    .ph::after { content: ""; position: absolute; right: -3px; top: 22%; width: 3px; height: 56px; border-radius: 0 3px 3px 0;
+      background: linear-gradient(90deg, #3A4455, #7A879B); box-shadow: 0 74px 0 0 #5A6679; }
+    .ph img { display: block; width: 100%; aspect-ratio: 1080 / 2340; object-fit: cover; border-radius: 32px; background: #1A2B42;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .6); }
     .ph.l { transform: translate(-112%, -46%) rotate(-9deg) scale(.86); }
     .ph.r { transform: translate(12%, -46%) rotate(9deg) scale(.86); }
     .ph.c { transform: translate(-50%, -50%); z-index: 2; width: 256px; }
@@ -98,7 +106,8 @@
     }
     @media (max-width: 520px) {
       .fan { height: 400px; }
-      .ph { width: 160px; border-radius: 30px; } .ph img { border-radius: 24px; } .ph.c { width: 180px; }
+      .ph { width: 160px; border-radius: 30px; padding: 7px; } .ph img { border-radius: 24px; } .ph.c { width: 180px; }
+      .ph::before { top: 14px; width: 8px; height: 8px; margin-left: -4px; }
       .chip { font-size: 12px; padding: 8px 10px; } .chip i { width: 24px; height: 24px; font-size: 13px; }
       .chip.one { left: 0; } .chip.two { right: 0; }
     }
@@ -113,7 +122,9 @@
     @media (max-width: 760px) { .stats .row { grid-template-columns: 1fr 1fr; } .stat:nth-child(3) { border-left: 0; } .stat:nth-child(n+3) { border-top: 1px solid var(--border); } }
 
     /* ---------- Apps ---------- */
-    section { padding: 96px 0 0; }
+    /* section.wrap statt section: sonst überschreibt „.wrap { padding: 0 20px }“ den Abstand nach oben (war 0) */
+    section.wrap { padding-top: 96px; }
+    @media (max-width: 600px) { section.wrap { padding-top: 64px; } }
     .head { margin-bottom: 40px; }
     .app { --c: var(--teal-bright); position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 28px; border-radius: 30px; overflow: hidden;
       background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
@@ -348,7 +359,7 @@
     <div class="cols">
       <div><div class="brand">Planer-Apps</div>Apps, die Schule und Ausbildung leichter machen. Ohne Tracking, die Planer werbefrei.</div>
       <div><h4>Apps</h4><a href="azubiplaner/index.html">AzubiPlaner</a><a href="#schulplaner">SchulPlaner (bald)</a><a href="#schaetzmeister">Schätzmeister (bald)</a></div>
-      <div><h4>Kontakt</h4><a href="kontakt.html">Kontaktformular</a><a href="mailto:azubiplaner.app@gmail.com">E-Mail schreiben</a></div>
+      <div><h4>Kontakt</h4><a href="kontakt.html">Kontaktformular</a><a href="mailto:planer.apps.dev@gmail.com">E-Mail schreiben</a></div>
       <div><h4>Rechtliches</h4><a href="impressum.html">Impressum</a><a href="azubiplaner/datenschutz.html">Datenschutz</a><a href="azubiplaner/nutzungsbedingungen.html">Nutzungsbedingungen</a></div>
     </div>
     <div class="copy">© 2026 Planer-Apps · Google Play und das Google Play-Logo sind Marken von Google LLC.</div>

@@ -38,6 +38,13 @@
 .pa-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
 .pa-bar .pa-theme { border: 1px solid rgba(255, 255, 255, .16); background: transparent; color: #EEF2F7; border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer; width: auto; margin: 0; box-shadow: none; }
 .pa-bar .pa-theme:hover { background: rgba(255, 255, 255, .08); }
+/* Sanfter Übergang beim Wechsel Hell ↔ Dunkel (nur kurz während des Umschaltens aktiv, siehe site.js) */
+html.pa-fade, html.pa-fade *, html.pa-fade *::before, html.pa-fade *::after {
+  transition: background-color .5s ease, color .5s ease, border-color .5s ease, fill .5s ease, stroke .5s ease,
+    box-shadow .5s ease, outline-color .5s ease !important;
+}
+@media (prefers-reduced-motion: reduce) { html.pa-fade, html.pa-fade * { transition: none !important; } }
+
 @media (max-width: 340px) { .pa-logo span { display: none; } }
 @media (max-width: 520px) {
   .pa-in { padding: 0 12px; }

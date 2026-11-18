@@ -11,6 +11,17 @@
 
   // Seiten ohne eigenen Design-Knopf bekommen einen in der Leiste.
   try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+
+  // Sanfter Übergang beim Umschalten Hell ↔ Dunkel – egal welcher Knopf (auch der eigene der App-Seiten)
+  // oder ob das System-Design wechselt. Die Klasse liegt nur kurz an, damit sonst nichts träge wirkt.
+  var fadeTimer;
+  function fade() {
+    root.classList.add('pa-fade');
+    clearTimeout(fadeTimer);
+    fadeTimer = setTimeout(function () { root.classList.remove('pa-fade'); }, 600);
+  }
+  new MutationObserver(fade).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fade); } catch (e) {}
   if (!document.getElementById('themeBtn')) {
     var right = document.querySelector('.pa-right');
     if (right) {

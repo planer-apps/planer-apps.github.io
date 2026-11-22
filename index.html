@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Planer-Apps – Apps für Schule und Ausbildung</title>
-  <meta name="description" content="Planer-Apps: AzubiPlaner für Auszubildende, bald auch SchulPlaner und Schätzmeister. Ohne Tracking, die Planer werbefrei.">
+  <meta name="description" content="Planer-Apps: AzubiPlaner für Auszubildende, das Schätzspiel Schätzmeister und bald der SchulPlaner. Ohne Tracking, die Planer werbefrei.">
   <meta name="theme-color" content="#0B1524">
   <link rel="icon" href="img/azubiplaner.png">
   <link rel="stylesheet" href="site.css">
@@ -159,19 +159,8 @@
     }
     @media (max-width: 440px) { .feats { grid-template-columns: 1fr; } }
 
-    /* Schätzmeister-Vorschau (ohne Screenshot) */
-    .guess { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px;
-      background: radial-gradient(110% 90% at 70% 0%, #4A37B8, #241B5A 55%, #150F38); }
-    .gcard { width: min(340px, 100%); background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .14); border-radius: 24px; padding: 24px; color: #fff;
-      backdrop-filter: blur(6px); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .6); }
-    .gcard .q { font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #FFC23D; }
-    .gcard h4 { font-size: 22px; margin: 6px 0 20px; line-height: 1.25; }
-    .gcard .val { font-size: 40px; font-weight: 900; letter-spacing: -.03em; }
-    .gcard .val small { font-size: 18px; color: #C9C3F2; margin-left: 4px; }
-    .gcard input { width: 100%; accent-color: #FFB22E; margin: 14px 0 6px; }
-    .gcard .scale { display: flex; justify-content: space-between; font-size: 12px; color: #C9C3F2; }
-    .gcard .res { margin-top: 16px; font-size: 14px; font-weight: 700; min-height: 1.5em; color: #FFD27A; }
-    .gcard button { margin-top: 12px; width: 100%; border: 0; border-radius: 14px; padding: 12px; font: inherit; font-weight: 800; background: #FFB22E; color: #241B5A; cursor: pointer; }
+    /* Schätzmeister: violetter Hintergrund wie in der App */
+    .app .stage.sm { background: radial-gradient(110% 90% at 70% 0%, #4A37B8, #241B5A 55%, #150F38); }
     .soon { display: inline-block; margin-left: 8px; font-size: 12px; font-weight: 800; color: #B27300; background: #FFEFD2; padding: 3px 9px; border-radius: 99px; vertical-align: 6px; }
 
     /* ---------- Werte ---------- */
@@ -221,7 +210,7 @@
         <hr>
         <a href="azubiplaner/index.html"><img src="img/azubiplaner.png" alt=""><strong>AzubiPlaner</strong><small>Für Auszubildende</small></a>
         <a href="index.html#schulplaner"><img src="img/schulplaner.png" alt=""><strong>SchulPlaner<span class="pa-soon">bald</span></strong><small>Für Schülerinnen und Schüler</small></a>
-        <a href="index.html#schaetzmeister"><img src="img/schaetzmeister.png" alt=""><strong>Schätzmeister<span class="pa-soon">bald</span></strong><small>Das Schätzspiel für zwischendurch</small></a>
+        <a href="schaetzmeister/index.html"><img src="img/schaetzmeister.png" alt=""><strong>Schätzmeister</strong><small>Das Schätzspiel für zwischendurch</small></a>
       </div>
     </details>
     <div class="pa-right"><a class="pa-link" href="kontakt.html">Kontakt</a></div>
@@ -307,26 +296,18 @@
 
     <article class="app gold reveal" id="schaetzmeister">
       <div class="info">
-        <div class="top"><img src="img/schaetzmeister.png" alt=""><div><h3>Schätzmeister<span class="soon">Bald</span></h3><span class="for">Das Schätzspiel für zwischendurch</span></div></div>
+        <div class="top"><img src="img/schaetzmeister.png" alt=""><div><h3>Schätzmeister<span class="soon">Im Test</span></h3><span class="for">Das Schätzspiel für zwischendurch</span></div></div>
         <p class="what">Wie hoch, wie alt, wie viele? Schätze, so nah du kannst – je näher, desto mehr Punkte.</p>
         <ul class="feats">
           <li>Über 2.500 Fragen</li><li>Tageschallenge</li>
-          <li>Blitzrunde &amp; Höher oder tiefer</li><li>Erfolge und Serien</li>
+          <li>Blitzrunde &amp; Höher oder tiefer</li><li>Ligen &amp; Ranglisten</li>
+          <li>Gegen Freunde spielen</li><li>Erfolge und Serien</li>
         </ul>
-        <span class="go" style="cursor:default">In Arbeit – probier rechts schon mal</span>
+        <a class="go" href="schaetzmeister/index.html">Zum Schätzmeister <span aria-hidden="true">→</span></a>
       </div>
-      <div class="stage">
-        <div class="guess">
-          <div class="gcard">
-            <div class="q">Schätzfrage</div>
-            <h4>Wie hoch ist der Eiffelturm (mit Antennen)?</h4>
-            <div class="val"><span id="gv">200</span><small>m</small></div>
-            <input id="gr" type="range" min="50" max="600" step="5" value="200" aria-label="Deine Schätzung in Metern">
-            <div class="scale"><span>50 m</span><span>600 m</span></div>
-            <button id="gb" type="button">Schätzung abgeben</button>
-            <div class="res" id="gres" role="status"></div>
-          </div>
-        </div>
+      <div class="stage sm">
+        <div class="ph s1"><img src="schaetzmeister/img/light_03_frage.png" alt="Eine Schätzfrage im Schätzmeister" loading="lazy"></div>
+        <div class="ph s2"><img src="schaetzmeister/img/dark_02_start.png" alt="Startseite des Schätzmeisters" loading="lazy"></div>
       </div>
     </article>
   </section>
@@ -359,9 +340,9 @@
   <div class="wrap">
     <div class="cols">
       <div><div class="brand">Planer-Apps</div>Apps, die Schule und Ausbildung leichter machen. Ohne Tracking, die Planer werbefrei.</div>
-      <div><h4>Apps</h4><a href="azubiplaner/index.html">AzubiPlaner</a><a href="#schulplaner">SchulPlaner (bald)</a><a href="#schaetzmeister">Schätzmeister (bald)</a></div>
+      <div><h4>Apps</h4><a href="azubiplaner/index.html">AzubiPlaner</a><a href="#schulplaner">SchulPlaner (bald)</a><a href="schaetzmeister/index.html">Schätzmeister</a></div>
       <div><h4>Kontakt</h4><a href="kontakt.html">Kontaktformular</a><a href="mailto:planer.apps.dev@gmail.com">E-Mail schreiben</a></div>
-      <div><h4>Rechtliches</h4><a href="impressum.html">Impressum</a><a href="azubiplaner/datenschutz.html">Datenschutz</a><a href="azubiplaner/nutzungsbedingungen.html">Nutzungsbedingungen</a></div>
+      <div><h4>Rechtliches</h4><a href="impressum.html">Impressum</a><a href="azubiplaner/datenschutz.html">Datenschutz</a><a href="azubiplaner/nutzungsbedingungen.html">Nutzungsbedingungen</a><a href="schaetzmeister/datenschutz.html">Datenschutz Schätzmeister</a></div>
     </div>
     <div class="copy">© 2026 Planer-Apps · Google Play und das Google Play-Logo sind Marken von Google LLC.</div>
   </div>
@@ -369,15 +350,6 @@
 
 <script src="site.js" defer></script>
 <script>
-  // Schätzfrage zum Ausprobieren (Eiffelturm: 330 m mit Antennen)
-  (function () {
-    var r = document.getElementById('gr'), v = document.getElementById('gv'), b = document.getElementById('gb'), res = document.getElementById('gres');
-    r.addEventListener('input', function () { v.textContent = r.value; res.textContent = ''; });
-    b.addEventListener('click', function () {
-      var g = +r.value, d = Math.abs(g - 330), pts = Math.round(1000 * Math.min(g, 330) / Math.max(g, 330));
-      res.textContent = (d <= 10 ? 'Volltreffer! ' : d <= 40 ? 'Sehr nah! ' : 'Nicht ganz. ') + 'Richtig: 330 m · ' + pts + ' Punkte';
-    });
-  })();
   // Handys folgen leicht der Maus (nicht bei „Bewegung reduzieren“)
   (function () {
     var fan = document.getElementById('fan');

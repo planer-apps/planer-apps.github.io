@@ -9,6 +9,11 @@ html:root, html:root[data-theme] {
   --text: #EEF2F7; --text-2: #9AA8BA; --accent: #2CC9B0;
   --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 18px 40px -24px rgba(0, 0, 0, .8);
 }
+/* Schätzmeister behält seine eigenen Farben (Violett/Gold) – ebenfalls immer dunkel. build.ps1 setzt class="pa-sm". */
+html.pa-sm:root, html.pa-sm:root[data-theme] {
+  --bg: #0B0A1A; --surface: #15132B; --muted: #1F1C3D; --border: #2E2A55;
+  --text: #F4F2FF; --text-2: #9C97C3; --accent: #FFC53D;
+}
 .theme-btn, #themeBtn, .pa-theme { display: none !important; }
 
 /* Leiste bleibt beim Scrollen oben stehen; die eigene Kopfzeile der App-Seiten rutscht direkt darunter. */

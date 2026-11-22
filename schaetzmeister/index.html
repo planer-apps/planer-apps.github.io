@@ -1,0 +1,236 @@
+<!doctype html>
+<html class="pa-sm" lang="de" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schätzmeister – Wie gut kannst du wirklich schätzen?</title>
+  <meta name="description" content="Schätzmeister: das tägliche Schätzspiel mit über 2.500 Fragen, Ranglisten und Duellen mit Freunden. Kostenlos und ohne Werbung.">
+  <link rel="icon" href="img/icon.png">
+  <!-- Bewusst ohne externe Schriften, Skripte oder Tracker: nichts wird an Dritte übertragen. Vorlage: AzubiPlaner-Website. -->
+  <style>
+    :root {
+      --bg: #0B0A1A; --surface: #15132B; --muted: #1F1C3D; --border: #2E2A55;
+      --text: #F4F2FF; --text-2: #9C97C3; --accent: #FFC53D; --accent-2: #FF9F1C; --violet: #8B6CFF; --on-accent: #1A1300;
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      background-image: radial-gradient(900px 520px at 85% -10%, #2A1F6B 0%, transparent 70%);
+      background-repeat: no-repeat;
+      font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+    header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+    header.top .wrap { display: flex; align-items: center; gap: 12px; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; color: var(--text); text-decoration: none; }
+    .brand img { width: 34px; height: 34px; border-radius: 9px; }
+    nav.links { margin-left: auto; display: flex; gap: 20px; }
+    nav.links a { color: var(--text-2); text-decoration: none; font-weight: 600; font-size: 15px; }
+    nav.links a:hover { color: var(--text); }
+    @media (max-width: 720px) { nav.links { display: none; } }
+
+    .hero { padding: 64px 0 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+    .hero h1 { font-size: clamp(36px, 5.4vw, 60px); line-height: 1.05; margin: 0 0 18px; letter-spacing: -0.02em; }
+    .hero h1 span { color: var(--accent); }
+    .hero p.lead { font-size: 20px; color: var(--text-2); margin: 0 0 26px; max-width: 34em; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+    .badge { background: var(--muted); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 600; color: var(--text-2); }
+    .cta { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: var(--on-accent); border-radius: 14px; padding: 14px 22px; font-weight: 700; text-decoration: none; }
+    .cta-note { display: block; margin-top: 10px; font-size: 14px; color: var(--text-2); }
+    /* Handy-Rahmen: Metallkante, Kamera-Loch oben mittig, Seitentasten */
+    .phone { position: relative; width: min(320px, 78vw); margin: 0 auto; border-radius: 48px; padding: 12px;
+      background: linear-gradient(145deg, #7A7699 0%, #2C2950 20%, #14122A 50%, #2C2950 80%, #67638A 100%);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28), inset 0 0 0 4px #07060F, 0 0 0 1px rgba(0, 0, 0, .35),
+        0 34px 70px -24px rgba(0, 0, 0, .6), 0 0 80px -20px color-mix(in srgb, var(--violet) 55%, transparent); }
+    .phone::before { content: ""; position: absolute; z-index: 2; top: 23px; left: 50%; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%;
+      background: radial-gradient(circle, #1C1A36 0 22%, #05050B 32%); box-shadow: 0 0 0 1.5px rgba(0, 0, 0, .55); }
+    .phone::after { content: ""; position: absolute; right: -3px; top: 22%; width: 4px; height: 70px; border-radius: 0 4px 4px 0;
+      background: linear-gradient(90deg, #3A3758, #8A86AA); box-shadow: 0 90px 0 0 #67638A; }
+    .phone img { display: block; width: 100%; border-radius: 37px; aspect-ratio: 1080 / 2340; object-fit: cover; background: var(--muted);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .6); }
+    @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 40px; } }
+
+    section { padding: 56px 0; }
+    h2 { font-size: clamp(28px, 3.6vw, 40px); margin: 0 0 12px; letter-spacing: -0.01em; }
+    p.sub { color: var(--text-2); margin: 0 0 32px; max-width: 40em; }
+
+    .tour { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: center; }
+    .tour-list { display: grid; gap: 10px; }
+    .tour-item { text-align: left; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 16px; padding: 16px 18px; font: inherit; cursor: pointer; transition: border-color .15s, transform .15s; }
+    .tour-item strong { display: block; font-size: 18px; }
+    .tour-item span { color: var(--text-2); font-size: 15px; }
+    .tour-item[aria-selected="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent); }
+    .tour-item:hover { transform: translateY(-1px); }
+    @media (max-width: 860px) { .tour { grid-template-columns: 1fr; } .tour .phone { order: -1; } }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+    .card .ico { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-size: 22px; margin-bottom: 12px; background: var(--muted); }
+    .card h3 { margin: 0 0 6px; font-size: 19px; }
+    .card p { margin: 0; color: var(--text-2); font-size: 16px; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+    @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+    ul.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    ul.checks li { padding-left: 30px; position: relative; }
+    ul.checks li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 13px; display: grid; place-items: center; font-weight: 800; }
+    .score { font-size: clamp(44px, 7vw, 72px); font-weight: 800; color: var(--accent); line-height: 1; margin: 0 0 8px; }
+
+    details { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; margin-bottom: 10px; }
+    summary { cursor: pointer; font-weight: 700; }
+    details p { color: var(--text-2); margin: 10px 0 0; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 0 48px; color: var(--text-2); font-size: 14px; }
+    footer a { margin-right: 4px; }
+  </style>
+  <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<nav class="pa-bar" aria-label="Planer-Apps">
+  <div class="pa-in">
+    <a class="pa-logo" href="../index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="paLogoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2CC9B0"/><stop offset="1" stop-color="#0F9F8C"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#paLogoG)"/><path d="M9 16.5l4.5 4.5L23 11" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Planer-Apps</span></a>
+    <details class="pa-apps">
+      <summary>Alle Apps</summary>
+      <div class="pa-menu">
+        <a href="../index.html#apps"><span class="pa-all">◆</span><strong>Übersicht</strong><small>Alle Planer-Apps auf einen Blick</small></a>
+        <hr>
+        <a href="../azubiplaner/index.html"><img src="../img/azubiplaner.png" alt=""><strong>AzubiPlaner</strong><small>Für Auszubildende</small></a>
+        <a href="../index.html#schulplaner"><img src="../img/schulplaner.png" alt=""><strong>SchulPlaner<span class="pa-soon">bald</span></strong><small>Für Schülerinnen und Schüler</small></a>
+        <a href="../schaetzmeister/index.html"><img src="../img/schaetzmeister.png" alt=""><strong>Schätzmeister</strong><small>Das Schätzspiel für zwischendurch</small></a>
+      </div>
+    </details>
+    <div class="pa-right"><a class="pa-link" href="../kontakt.html">Kontakt</a></div>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/icon.png" alt="">Schätzmeister</a>
+    <nav class="links">
+      <a href="#vorschau">Vorschau</a>
+      <a href="#funktionen">Funktionen</a>
+      <a href="#datenschutz">Daten</a>
+      <a href="#fragen">Fragen</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Wie gut kannst du<br><span>wirklich schätzen?</span></h1>
+      <p class="lead">Wie schwer ist ein Ferrari F40? Wie hoch ist die Zugspitze? Jeden Tag fünf neue Fragen – je näher du an der echten Zahl liegst, desto mehr Punkte. Vergleich dich mit allen oder fordere deine Freunde heraus.</p>
+      <div class="badges">
+        <span class="badge">Kostenlos &amp; ohne Werbung</span>
+        <span class="badge">Über 2.500 Fragen mit Quelle</span>
+        <span class="badge">Auch offline</span>
+        <span class="badge">Hell &amp; dunkel</span>
+      </div>
+      <a class="cta" href="#bald">Bald im Google Play Store</a>
+      <span class="cta-note">Aktuell im geschlossenen Test. Zuerst für Android.</span>
+    </div>
+    <div class="phone"><img src="img/dark_02_start.png" alt="Startseite des Schätzmeisters mit der Tageschallenge"></div>
+  </div>
+
+  <section id="vorschau">
+    <h2>Klick dich durch</h2>
+    <p class="sub">So sieht der Schätzmeister aus – wähle links einen Bereich.</p>
+    <div class="tour">
+      <div class="tour-list" role="tablist" aria-label="Bereiche der App">
+        <button class="tour-item" role="tab" aria-selected="true" data-img="img/light_03_frage.png"><strong>Schätzen</strong><span>Eine Frage, eine Zahl. Mit Regler oder Tastatur – ganz ohne Auswahlantworten.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/dark_04_aufloesung.png"><strong>Auflösung</strong><span>Wie nah warst du? Punkte, Abweichung und die Quelle des richtigen Werts.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/light_05_ergebnis.png"><strong>Tagesergebnis</strong><span>Bis zu 5.000 Punkte am Tag – mit Serie, Rekorden und deinem Rang.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/light_08_spielen.png"><strong>Spielmodi</strong><span>Endlos, nach Kategorie, Blitzrunde oder „Höher oder tiefer?“.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/light_09b_rangliste_heute.png"><strong>Ranglisten</strong><span>Heute, die Woche und die Wochenliga mit allen Spielern.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="img/dark_09e_freunde.png"><strong>Freunde &amp; Duelle</strong><span>Freundescode teilen und gegeneinander antreten.</span></button>
+      </div>
+      <div class="phone"><img id="tourShot" src="img/light_03_frage.png" alt="Vorschau: Schätzen"></div>
+    </div>
+  </section>
+
+  <section id="funktionen">
+    <h2>Mehr als ein Quiz</h2>
+    <p class="sub">Beim Schätzen zählt nicht, ob du es weißt – sondern wie nah du rankommst.</p>
+    <div class="grid">
+      <div class="card"><div class="ico">📅</div><h3>Tageschallenge</h3><p>Jeden Tag dieselben fünf Fragen für alle – aus fünf verschiedenen Kategorien.</p></div>
+      <div class="card"><div class="ico">🎯</div><h3>Faire Punkte</h3><p>Bis zu 1.000 Punkte pro Frage – je näher du dran bist, desto mehr. Ein Treffer auf den Punkt ist eine Punktlandung.</p></div>
+      <div class="card"><div class="ico">📚</div><h3>Über 2.500 Fragen</h3><p>Geografie, Tiere, Technik, Sport, Geschichte und mehr. Jede Zahl mit Quelle, viele mit Foto.</p></div>
+      <div class="card"><div class="ico">⚡</div><h3>Spielmodi</h3><p>Endlosmodus mit Kategorien und Schwierigkeit, Blitzrunde und „Höher oder tiefer?“.</p></div>
+      <div class="card"><div class="ico">🏆</div><h3>Ranglisten &amp; Liga</h3><p>Vergleich dich täglich und wöchentlich – und sieh, wie alle anderen geschätzt haben.</p></div>
+      <div class="card"><div class="ico">⚔️</div><h3>Duelle</h3><p>Fünf Fragen, ein Code: Schick ihn deinen Freunden und schau, wer besser schätzt.</p></div>
+      <div class="card"><div class="ico">🔥</div><h3>Serien &amp; Erfolge</h3><p>Bleib dran mit Tagesserie, Serien-Schutz, Rekorden und Abzeichen.</p></div>
+      <div class="card"><div class="ico">📤</div><h3>Teilen ohne Spoiler</h3><p>Deine Ergebnisgrafik verrät keine Lösungen – perfekt für den Gruppenchat.</p></div>
+      <div class="card"><div class="ico">🔔</div><h3>Erinnerung</h3><p>Auf Wunsch eine tägliche Erinnerung am Abend – mit einem Spruch, nie mehr als eine.</p></div>
+    </div>
+  </section>
+
+  <section class="split">
+    <div>
+      <p class="score">1.000</p>
+      <h2>So wird gezählt</h2>
+      <p class="sub">Gezählt wird das Verhältnis zwischen deiner Schätzung und dem richtigen Wert. Liegst du 10 % daneben, gibt es 800 Punkte – und unter 1 % Abweichung ist es eine Punktlandung.</p>
+      <ul class="checks">
+        <li>Doppelt so viel oder halb so viel ergibt gleich viele Punkte.</li>
+        <li>Große und kleine Zahlen sind gleich fair.</li>
+        <li>Jeder Wert mit Quelle – falsche Fragen kannst du melden.</li>
+      </ul>
+    </div>
+    <div class="phone"><img src="img/dark_04_aufloesung.png" alt="Auflösung einer Frage mit Punkten und Abweichung"></div>
+  </section>
+
+  <section id="datenschutz" class="split">
+    <div class="phone"><img src="img/dark_09c_liga.png" alt="Wochenliga im Schätzmeister"></div>
+    <div>
+      <h2>Spielen ohne Datensammeln</h2>
+      <p class="sub">Schätzmeister läuft ohne Konto und ohne Internet. Online mitspielen ist freiwillig.</p>
+      <ul class="checks">
+        <li><strong>Ohne Konto:</strong> dein Spielstand bleibt auf deinem Handy.</li>
+        <li><strong>Online-Konto (ab 16):</strong> nur ein Spielername – keine E-Mail, kein Passwort. Server in der EU.</li>
+        <li>Keine Werbung, keine Tracker, kein Verkauf von Daten.</li>
+        <li>Konto jederzeit in der App löschen – oder <a href="konto-loeschen.html">hier erfahren, wie</a>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="fragen">
+    <h2>Häufige Fragen</h2>
+    <details><summary>Was kostet der Schätzmeister?</summary><p>Nichts. Die App ist kostenlos, ohne Werbung und ohne Käufe in der App.</p></details>
+    <details><summary>Woher kommen die Zahlen?</summary><p>Aus öffentlichen Quellen wie Wikidata. Bei jeder Frage stehen Quelle und Stand, bei Fotos Urheber und Lizenz. Findest du einen Fehler, melde die Frage direkt in der App.</p></details>
+    <details><summary>Brauche ich ein Konto oder Internet?</summary><p>Nein. Du kannst komplett offline spielen. Für Ranglisten, Freunde und Duelle legst du ab 16 Jahren ein Online-Konto an – nur mit einem Spielernamen.</p></details>
+    <details><summary>Gibt es die App fürs iPhone?</summary><p>Zuerst erscheint die Android-Version.</p></details>
+    <details><summary>Wie erreiche ich euch?</summary><p>Über das <a href="../kontakt.html">Kontaktformular</a> oder per E-Mail an planer.apps.dev@gmail.com.</p></details>
+  </section>
+
+  <section id="bald">
+    <div class="card" style="text-align:center; padding:40px 24px">
+      <h2>Bald verfügbar</h2>
+      <p class="sub" style="margin:0 auto">Der Schätzmeister ist gerade im Test und erscheint demnächst im Google Play Store.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="../impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> · <a href="konto-loeschen.html">Konto löschen</a> · <a href="../kontakt.html">Kontakt</a> · <a href="../index.html">Planer-Apps</a><br>
+    © Schätzmeister · Fragen u. a. aus Wikidata (CC0) · Fotos: Wikimedia Commons (Urheber und Lizenz in der App)
+  </div>
+</footer>
+
+<script>
+  // Die Website ist immer dunkel (wie beim AzubiPlaner).
+  const shot = document.getElementById('tourShot');
+  const items = [...document.querySelectorAll('.tour-item')];
+  items.forEach((b) => b.addEventListener('click', () => {
+    items.forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    shot.src = b.dataset.img;
+    shot.alt = 'Vorschau: ' + b.querySelector('strong').textContent;
+  }));
+</script>
+<script src="../site.js" defer></script>
+</body>
+</html>

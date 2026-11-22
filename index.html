@@ -76,19 +76,29 @@
     .glow { transition: background 1.2s ease; }
     .hero[data-s="1"] .glow.a { background: #5B3DF5; } .hero[data-s="1"] .glow.b { background: #B86B00; } .hero[data-s="1"] .glow.c { background: #3B2C8F; }
     .hero[data-s="2"] .glow.a { background: #1E4FA8; } .hero[data-s="2"] .glow.b { background: #0F9F8C; } .hero[data-s="2"] .glow.c { background: #2B4FB8; }
-    .hnav { position: absolute; z-index: 3; left: 50%; bottom: 34px; transform: translateX(-50%); display: flex; align-items: center; gap: 12px;
-      padding: 6px; border-radius: 999px; background: rgba(11, 21, 36, .55); border: 1px solid rgba(255, 255, 255, .1); backdrop-filter: blur(8px); }
-    .harr { width: 38px; height: 38px; border-radius: 50%; border: 0; cursor: pointer; font: 700 24px/1 system-ui, sans-serif; padding: 0 0 3px;
-      color: #EEF2F7; background: rgba(255, 255, 255, .08); transition: background .15s, transform .15s; }
-    .harr:hover { background: rgba(255, 255, 255, .18); transform: scale(1.06); }
-    .hdots { display: flex; gap: 8px; }
-    .hdots button { position: relative; overflow: hidden; width: 9px; height: 9px; padding: 0; border: 0; border-radius: 99px; cursor: pointer;
-      background: rgba(255, 255, 255, .28); transition: width .35s ease, background .2s; }
-    .hdots button:hover { background: rgba(255, 255, 255, .5); }
-    .hdots button.on { width: 34px; }
+    .hnav { position: absolute; z-index: 3; left: 50%; bottom: 34px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; }
+    .harr { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: 50%; cursor: pointer;
+      color: #EEF2F7; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .16); backdrop-filter: blur(8px);
+      transition: background .2s, border-color .2s, color .2s, transform .15s; }
+    .harr svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .harr:hover { background: var(--dot, #2CC9B0); border-color: transparent; color: #0B1524; }
+    .harr:active { transform: scale(.92); }
+    .harr:focus-visible, .hdots button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .hdots { display: flex; align-items: center; gap: 8px; }
+    .hdots button { position: relative; overflow: hidden; width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; cursor: pointer;
+      background: rgba(255, 255, 255, .3); transition: width .35s ease, background .2s; }
+    .hdots button:hover { background: rgba(255, 255, 255, .55); }
+    .hdots button.on { width: 40px; background: rgba(255, 255, 255, .18); }
     .hdots button.on::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--dot, #2CC9B0); transform-origin: left; animation: hfill var(--dur, 7s) linear forwards; }
     .hero.paused .hdots button.on::after { animation-play-state: paused; }
     .hero.still .hdots button.on::after { animation: none; }
+    /* Pause-Knopf: etwas kleiner, mit Abstand zu den Pfeilen */
+    .hpause { width: 36px; height: 36px; margin-left: 4px; }
+    .hpause svg { width: 16px; height: 16px; }
+    .hpause .i-play { fill: currentColor; display: none; }
+    .hpause.play .i-play { display: block; } .hpause.play .i-pause { display: none; }
+    .hpause.play { background: var(--dot, #2CC9B0); border-color: transparent; color: #0B1524; }
+    .hero.still .hpause { display: none; }
     @keyframes hfill { from { transform: scaleX(0); } }
     .hero p.sub { font-size: 20px; color: #B7C3D3; margin: 0 0 30px; max-width: 30em; }
     .btns { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -322,13 +332,17 @@
     </div>
   </div>
   <div class="hnav">
-    <button type="button" class="harr" id="hPrev" aria-label="Vorherige App">‹</button>
+    <button type="button" class="harr" id="hPrev" aria-label="Vorherige App"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6 8.5 12l6 6"/></svg></button>
     <div class="hdots" id="hDots">
       <button type="button" class="on" aria-label="AzubiPlaner zeigen" aria-current="true"></button>
       <button type="button" aria-label="Schätzmeister zeigen"></button>
       <button type="button" aria-label="SchulPlaner zeigen"></button>
     </div>
-    <button type="button" class="harr" id="hNext" aria-label="Nächste App">›</button>
+    <button type="button" class="harr" id="hNext" aria-label="Nächste App"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button>
+    <button type="button" class="harr hpause" id="hPause" aria-label="Automatisches Wechseln anhalten" aria-pressed="false" title="Pause / Weiter">
+      <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7v10M15 7v10"/></svg>
+      <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z"/></svg>
+    </button>
   </div>
   <div class="hero-fade"></div>
 </header>
@@ -440,10 +454,10 @@
 
 <script src="site.js" defer></script>
 <script>
-  // Karussell oben: wechselt alle 7 s, Pfeile, Punkte, Wischen und Pfeiltasten. Hält an, solange die Maus darauf ist.
+  // Karussell oben: wechselt alle 10 s, Pfeile, Punkte, Wischen und Pfeiltasten. Hält an, solange die Maus darauf ist.
   (function () {
     var hero = document.getElementById('hero'), slides = [].slice.call(hero.querySelectorAll('.slide')),
-        dots = [].slice.call(document.querySelectorAll('#hDots button')), cur = 0, timer = null, DUR = 7000,
+        dots = [].slice.call(document.querySelectorAll('#hDots button')), cur = 0, timer = null, DUR = 10000,
         still = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (still) hero.classList.add('still');
     hero.style.setProperty('--dur', DUR / 1000 + 's');
@@ -461,30 +475,47 @@
       dots.forEach(function (d, k) {
         d.classList.toggle('on', k === i);
         if (k === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
-        d.style.setProperty('--dot', getComputedStyle(slides[i]).getPropertyValue('--hc'));
       });
+      hero.style.setProperty('--dot', getComputedStyle(slides[i]).getPropertyValue('--hc').trim());
       cur = i; hero.setAttribute('data-s', i);
       restart();
     }
+    // Zeit: läuft nur, wenn nicht pausiert (Knopf) und der Tab sichtbar ist. Beim Fortsetzen geht es mit der Restzeit weiter.
+    var held = false, remaining = DUR, startedAt = Date.now(), pauseBtn = document.getElementById('hPause');
+    function stop() { clearTimeout(timer); timer = null; remaining -= Date.now() - startedAt; startedAt = Date.now(); }
+    function go() {
+      hero.classList.toggle('paused', held || document.hidden);
+      if (still || held || document.hidden || timer) return;
+      startedAt = Date.now();
+      timer = setTimeout(function () { timer = null; show(cur + 1, 1); }, Math.max(remaining, 0));
+    }
     function restart() {
-      clearTimeout(timer);
-      if (!still) timer = setTimeout(function () { show(cur + 1, 1); }, DUR);
+      clearTimeout(timer); timer = null; remaining = DUR; startedAt = Date.now();
       // Fortschrittsbalken im Punkt neu starten
       var d = dots[cur]; d.classList.remove('on'); void d.offsetWidth; d.classList.add('on');
+      go();
     }
+    pauseBtn.addEventListener('click', function () {
+      held = !held;
+      if (held) stop();
+      pauseBtn.classList.toggle('play', held);
+      pauseBtn.setAttribute('aria-label', held ? 'Automatisches Wechseln fortsetzen' : 'Automatisches Wechseln anhalten');
+      pauseBtn.setAttribute('aria-pressed', held ? 'true' : 'false');
+      go();
+    });
     slides.forEach(function (s, k) { if (k) s.setAttribute('inert', ''); });
-    dots[0].style.setProperty('--dot', '#2CC9B0');
+    hero.style.setProperty('--dot', '#2CC9B0');
     document.getElementById('hPrev').addEventListener('click', function () { show(cur - 1, -1); });
     document.getElementById('hNext').addEventListener('click', function () { show(cur + 1, 1); });
     dots.forEach(function (d, k) { d.addEventListener('click', function () { show(k); }); });
     hero.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowLeft') show(cur - 1, -1); else if (e.key === 'ArrowRight') show(cur + 1, 1);
     });
-    // Pause bei Maus darüber (am Computer), beim Verlassen läuft die Zeit neu an
-    if (matchMedia('(hover: hover)').matches) {
-      hero.addEventListener('mouseenter', function () { clearTimeout(timer); hero.classList.add('paused'); });
-      hero.addEventListener('mouseleave', function () { hero.classList.remove('paused'); restart(); });
-    }
+    // Pause nur, wenn der Tab im Hintergrund ist (keine Maus-Pause: der Bereich füllt oben fast den ganzen Bildschirm)
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden && timer) stop();
+      go();
+    });
     // Wischen (Handy)
     var x0 = null, y0 = 0;
     hero.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });

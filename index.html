@@ -454,10 +454,10 @@
 
 <script src="site.js" defer></script>
 <script>
-  // Karussell oben: wechselt alle 10 s, Pfeile, Punkte, Wischen und Pfeiltasten. Hält an, solange die Maus darauf ist.
+  // Karussell oben: wechselt alle 7 s, Pfeile, Punkte, Wischen und Pfeiltasten. Hält an, solange die Maus darauf ist.
   (function () {
     var hero = document.getElementById('hero'), slides = [].slice.call(hero.querySelectorAll('.slide')),
-        dots = [].slice.call(document.querySelectorAll('#hDots button')), cur = 0, timer = null, DUR = 10000,
+        dots = [].slice.call(document.querySelectorAll('#hDots button')), cur = 0, timer = null, DUR = 7000,
         still = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (still) hero.classList.add('still');
     hero.style.setProperty('--dur', DUR / 1000 + 's');

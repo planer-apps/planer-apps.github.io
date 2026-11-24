@@ -21,8 +21,9 @@
     footer { border-top:1px solid var(--border); margin-top:40px; padding-top:16px; font-size:14px; color:var(--text-2); }
   </style>
   <link rel="stylesheet" href="../site.css">
+  <script>(function(){var d=document.documentElement,c="",l;try{c=localStorage.getItem("pa_lang")||""}catch(e){}if(c!=="de"&&c!=="en")c="";if(c)l=c;else{var n=((navigator.languages&&navigator.languages[0])||navigator.language||"de").toLowerCase();l=n.indexOf("de")===0?"de":"en"}var p=d.getAttribute("data-pa-pagelang"),a=d.getAttribute("data-pa-alt");if(p&&a&&l!==p&&(c||p==="de")){d.style.visibility="hidden";location.replace(a+location.hash);return}if(p&&!c)l=p;d.setAttribute("data-lang",l);if(l==="en"){d.classList.add("pa-tr");setTimeout(function(){d.classList.remove("pa-tr")},2000)}})();</script>
 </head>
-<body>
+<body data-pa-legal>
 <nav class="pa-bar" aria-label="Planer-Apps">
   <div class="pa-in">
     <a class="pa-logo" href="../index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="paLogoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2CC9B0"/><stop offset="1" stop-color="#0F9F8C"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#paLogoG)"/><path d="M9 16.5l4.5 4.5L23 11" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Planer-Apps</span></a>
@@ -33,10 +34,19 @@
         <hr>
         <a href="../azubiplaner/index.html"><img src="../img/azubiplaner.png" alt=""><strong>AzubiPlaner</strong><small>Für Auszubildende</small></a>
         <a href="../index.html#schulplaner"><img src="../img/schulplaner.png" alt=""><strong>SchulPlaner<span class="pa-soon">bald</span></strong><small>Für Schülerinnen und Schüler</small></a>
-        <a href="../schaetzmeister/index.html"><img src="../img/schaetzmeister.png" alt=""><strong>Schätzmeister</strong><small>Das Schätzspiel für zwischendurch</small></a>
+        <a href="../schaetzmeister/index.html" data-en-href="../schaetzmeister/en/index.html"><img src="../img/schaetzmeister.png" alt=""><strong>Schätzmeister</strong><small>Das Schätzspiel für zwischendurch</small></a>
       </div>
     </details>
-    <div class="pa-right"><a class="pa-link" href="../kontakt.html">Kontakt</a></div>
+    <div class="pa-right">
+      <a class="pa-link" href="../kontakt.html">Kontakt</a>
+      <details class="pa-lang">
+        <summary aria-label="Sprache"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="pa-cur">DE</span></summary>
+        <div class="pa-menu pa-langs">
+          <button type="button" data-lang="de"><b>DE</b>Deutsch</button>
+          <button type="button" data-lang="en"><b>EN</b>English</button>
+        </div>
+      </details>
+    </div>
   </div>
 </nav>
 
@@ -83,6 +93,7 @@
     <p>Sollte eine Bestimmung unwirksam sein, bleibt der Vertrag im Übrigen wirksam; es gelten dann die gesetzlichen Vorschriften.</p>
     <footer><a href="datenschutz.html">Datenschutzerklärung</a> · <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> · <a href="../impressum.html">Impressum</a> · <a href="../index.html">Alle Apps</a> · <a href="konto-loeschen.html">Konto und Daten löschen</a><br>Fassung vom 19. November 2026</footer>
   </main>
+<script src="../i18n.js" defer></script>
 <script src="../site.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html class="pa-sm" data-pa-pagelang="en" data-pa-alt="../index.html" lang="en" data-theme="dark">
+<head>
+  <link rel="alternate" hreflang="de" href="../../schaetzmeister/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estimaster – How good are you at estimating?</title>
+  <meta name="description" content="Estimaster: the daily estimation game with over 2,500 questions, leaderboards and duels with friends. Free and ad-free, in 12 languages.">
+  <link rel="icon" href="../img/icon.png">
+  <!-- Bewusst ohne externe Schriften, Skripte oder Tracker: nichts wird an Dritte übertragen. Vorlage: AzubiPlaner-Website. -->
+  <style>
+    :root {
+      --bg: #0B0A1A; --surface: #15132B; --muted: #1F1C3D; --border: #2E2A55;
+      --text: #F4F2FF; --text-2: #9C97C3; --accent: #FFC53D; --accent-2: #FF9F1C; --violet: #8B6CFF; --on-accent: #1A1300;
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      background-image: radial-gradient(900px 520px at 85% -10%, #2A1F6B 0%, transparent 70%);
+      background-repeat: no-repeat;
+      font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+    header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+    header.top .wrap { display: flex; align-items: center; gap: 12px; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; color: var(--text); text-decoration: none; }
+    .brand img { width: 34px; height: 34px; border-radius: 9px; }
+    nav.links { margin-left: auto; display: flex; gap: 20px; }
+    nav.links a { color: var(--text-2); text-decoration: none; font-weight: 600; font-size: 15px; }
+    nav.links a:hover { color: var(--text); }
+    @media (max-width: 720px) { nav.links { display: none; } }
+
+    .hero { padding: 64px 0 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+    .hero h1 { font-size: clamp(36px, 5.4vw, 60px); line-height: 1.05; margin: 0 0 18px; letter-spacing: -0.02em; }
+    .hero h1 span { color: var(--accent); }
+    .hero p.lead { font-size: 20px; color: var(--text-2); margin: 0 0 26px; max-width: 34em; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+    .badge { background: var(--muted); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 600; color: var(--text-2); }
+    .cta { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: var(--on-accent); border-radius: 14px; padding: 14px 22px; font-weight: 700; text-decoration: none; }
+    .cta-note { display: block; margin-top: 10px; font-size: 14px; color: var(--text-2); }
+    /* Handy-Rahmen: Metallkante, Kamera-Loch oben mittig, Seitentasten */
+    .phone { position: relative; width: min(320px, 78vw); margin: 0 auto; border-radius: 48px; padding: 12px;
+      background: linear-gradient(145deg, #7A7699 0%, #2C2950 20%, #14122A 50%, #2C2950 80%, #67638A 100%);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28), inset 0 0 0 4px #07060F, 0 0 0 1px rgba(0, 0, 0, .35),
+        0 34px 70px -24px rgba(0, 0, 0, .6), 0 0 80px -20px color-mix(in srgb, var(--violet) 55%, transparent); }
+    .phone::before { content: ""; position: absolute; z-index: 2; top: 23px; left: 50%; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%;
+      background: radial-gradient(circle, #1C1A36 0 22%, #05050B 32%); box-shadow: 0 0 0 1.5px rgba(0, 0, 0, .55); }
+    .phone::after { content: ""; position: absolute; right: -3px; top: 22%; width: 4px; height: 70px; border-radius: 0 4px 4px 0;
+      background: linear-gradient(90deg, #3A3758, #8A86AA); box-shadow: 0 90px 0 0 #67638A; }
+    .phone img { display: block; width: 100%; border-radius: 37px; aspect-ratio: 1080 / 2340; object-fit: cover; background: var(--muted);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .6); }
+    @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 40px; } }
+
+    section { padding: 56px 0; }
+    h2 { font-size: clamp(28px, 3.6vw, 40px); margin: 0 0 12px; letter-spacing: -0.01em; }
+    p.sub { color: var(--text-2); margin: 0 0 32px; max-width: 40em; }
+
+    .tour { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: center; }
+    .tour-list { display: grid; gap: 10px; }
+    .tour-item { text-align: left; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 16px; padding: 16px 18px; font: inherit; cursor: pointer; transition: border-color .15s, transform .15s; }
+    .tour-item strong { display: block; font-size: 18px; }
+    .tour-item span { color: var(--text-2); font-size: 15px; }
+    .tour-item[aria-selected="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent); }
+    .tour-item:hover { transform: translateY(-1px); }
+    @media (max-width: 860px) { .tour { grid-template-columns: 1fr; } .tour .phone { order: -1; } }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+    .card .ico { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-size: 22px; margin-bottom: 12px; background: var(--muted); }
+    .card h3 { margin: 0 0 6px; font-size: 19px; }
+    .card p { margin: 0; color: var(--text-2); font-size: 16px; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+    @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+    ul.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    ul.checks li { padding-left: 30px; position: relative; }
+    ul.checks li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 13px; display: grid; place-items: center; font-weight: 800; }
+    .score { font-size: clamp(44px, 7vw, 72px); font-weight: 800; color: var(--accent); line-height: 1; margin: 0 0 8px; }
+
+    details { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; margin-bottom: 10px; }
+    summary { cursor: pointer; font-weight: 700; }
+    details p { color: var(--text-2); margin: 10px 0 0; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 0 48px; color: var(--text-2); font-size: 14px; }
+    footer a { margin-right: 4px; }
+  </style>
+  <link rel="stylesheet" href="../../site.css">
+  <script>(function(){var d=document.documentElement,c="",l;try{c=localStorage.getItem("pa_lang")||""}catch(e){}if(c!=="de"&&c!=="en")c="";if(c)l=c;else{var n=((navigator.languages&&navigator.languages[0])||navigator.language||"de").toLowerCase();l=n.indexOf("de")===0?"de":"en"}var p=d.getAttribute("data-pa-pagelang"),a=d.getAttribute("data-pa-alt");if(p&&a&&l!==p&&(c||p==="de")){d.style.visibility="hidden";location.replace(a+location.hash);return}if(p&&!c)l=p;d.setAttribute("data-lang",l);if(l==="en"){d.classList.add("pa-tr");setTimeout(function(){d.classList.remove("pa-tr")},2000)}})();</script>
+</head>
+<body>
+<nav class="pa-bar" aria-label="Planer-Apps">
+  <div class="pa-in">
+    <a class="pa-logo" href="../../index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="paLogoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2CC9B0"/><stop offset="1" stop-color="#0F9F8C"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#paLogoG)"/><path d="M9 16.5l4.5 4.5L23 11" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Planer-Apps</span></a>
+    <details class="pa-apps">
+      <summary>Alle Apps</summary>
+      <div class="pa-menu">
+        <a href="../../index.html#apps"><span class="pa-all">◆</span><strong>Übersicht</strong><small>Alle Planer-Apps auf einen Blick</small></a>
+        <hr>
+        <a href="../../azubiplaner/index.html"><img src="../../img/azubiplaner.png" alt=""><strong>AzubiPlaner</strong><small>Für Auszubildende</small></a>
+        <a href="../../index.html#schulplaner"><img src="../../img/schulplaner.png" alt=""><strong>SchulPlaner<span class="pa-soon">bald</span></strong><small>Für Schülerinnen und Schüler</small></a>
+        <a href="../../schaetzmeister/index.html" data-en-href="../../schaetzmeister/en/index.html"><img src="../../img/schaetzmeister.png" alt=""><strong>Schätzmeister</strong><small>Das Schätzspiel für zwischendurch</small></a>
+      </div>
+    </details>
+    <div class="pa-right">
+      <a class="pa-link" href="../../kontakt.html">Kontakt</a>
+      <details class="pa-lang">
+        <summary aria-label="Sprache"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="pa-cur">DE</span></summary>
+        <div class="pa-menu pa-langs">
+          <button type="button" data-lang="de"><b>DE</b>Deutsch</button>
+          <button type="button" data-lang="en"><b>EN</b>English</button>
+        </div>
+      </details>
+    </div>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="../img/icon.png" alt="">Estimaster</a>
+    <nav class="links">
+      <a href="#preview">Preview</a>
+      <a href="#features">Features</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#faq">FAQ</a>
+      <a href="../" lang="de">Deutsch</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>How good are you<br><span>at estimating?</span></h1>
+      <p class="lead">How heavy is a Ferrari F40? How tall is the Eiffel Tower? Five new questions every day – the closer you get to the real number, the more points you score. Compare yourself with everyone or challenge your friends.</p>
+      <div class="badges">
+        <span class="badge">Free &amp; ad-free</span>
+        <span class="badge">2,500+ questions with sources</span>
+        <span class="badge">Works offline</span>
+        <span class="badge">12 languages</span>
+      </div>
+      <a class="cta" href="#soon">Coming soon to Google Play</a>
+      <span class="cta-note">Currently in closed testing. Android first.</span>
+    </div>
+    <div class="phone"><img src="../img/en/dark_02_start.png" alt="Estimaster home screen with the daily challenge"></div>
+  </div>
+
+  <section id="preview">
+    <h2>Take a look</h2>
+    <p class="sub">This is what Estimaster looks like – pick an area on the left.</p>
+    <div class="tour">
+      <div class="tour-list" role="tablist" aria-label="Areas of the app">
+        <button class="tour-item" role="tab" aria-selected="true" data-img="../img/en/light_03_frage.png"><strong>Estimate</strong><span>One question, one number. With a slider or the keyboard – no multiple choice.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="../img/en/dark_04_aufloesung.png"><strong>Reveal</strong><span>How close were you? Points, deviation and the source of the correct value.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="../img/en/light_05_ergebnis.png"><strong>Daily result</strong><span>Up to 5,000 points a day – with streak, records and your rank.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="../img/en/light_08_spielen.png"><strong>Game modes</strong><span>Endless, by category, blitz round or “Higher or lower?”.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="../img/en/light_09b_rangliste_heute.png"><strong>Leaderboards</strong><span>Today, the week and the weekly league with all players.</span></button>
+        <button class="tour-item" role="tab" aria-selected="false" data-img="../img/en/dark_09e_freunde.png"><strong>Friends &amp; duels</strong><span>Share your friend code and compete against each other.</span></button>
+      </div>
+      <div class="phone"><img id="tourShot" src="../img/en/light_03_frage.png" alt="Preview: Estimate"></div>
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>More than a quiz</h2>
+    <p class="sub">When estimating, it doesn't matter whether you know – only how close you get.</p>
+    <div class="grid">
+      <div class="card"><div class="ico">📅</div><h3>Daily challenge</h3><p>The same five questions for everyone every day – from five different categories.</p></div>
+      <div class="card"><div class="ico">🎯</div><h3>Fair points</h3><p>Up to 1,000 points per question – the closer you are, the more you get. A spot-on guess is a bullseye.</p></div>
+      <div class="card"><div class="ico">📚</div><h3>2,500+ questions</h3><p>Geography, animals, tech, sports, history and more. Every number with a source, many with a photo.</p></div>
+      <div class="card"><div class="ico">⚡</div><h3>Game modes</h3><p>Endless mode with categories and difficulty, blitz round and “Higher or lower?”.</p></div>
+      <div class="card"><div class="ico">🏆</div><h3>Leaderboards &amp; league</h3><p>Compare yourself daily and weekly – and see how everyone else estimated.</p></div>
+      <div class="card"><div class="ico">⚔️</div><h3>Duels</h3><p>Five questions, one code: send it to your friends and see who estimates better.</p></div>
+      <div class="card"><div class="ico">🔥</div><h3>Streaks &amp; achievements</h3><p>Keep going with daily streaks, streak protection, records and badges.</p></div>
+      <div class="card"><div class="ico">📤</div><h3>Share without spoilers</h3><p>Your result image never gives away the answers – perfect for the group chat.</p></div>
+      <div class="card"><div class="ico">🌍</div><h3>12 languages</h3><p>English, German, French, Spanish, Italian, Portuguese, Dutch, Polish, Turkish, Ukrainian, Bulgarian and Chinese.</p></div>
+    </div>
+  </section>
+
+  <section class="split">
+    <div>
+      <p class="score">1,000</p>
+      <h2>How scoring works</h2>
+      <p class="sub">What counts is the ratio between your estimate and the correct value. If you're 10% off, you get 800 points – and under 1% deviation it's a bullseye.</p>
+      <ul class="checks">
+        <li>Twice as much or half as much gives the same points.</li>
+        <li>Big and small numbers are equally fair.</li>
+        <li>Every value has a source – you can report wrong questions.</li>
+      </ul>
+    </div>
+    <div class="phone"><img src="../img/en/dark_04_aufloesung.png" alt="Reveal of a question with points and deviation"></div>
+  </section>
+
+  <section id="privacy" class="split">
+    <div class="phone"><img src="../img/en/dark_09c_liga.png" alt="Weekly league in Estimaster"></div>
+    <div>
+      <h2>Play without data collection</h2>
+      <p class="sub">Estimaster works without an account and without internet. Playing online is optional.</p>
+      <ul class="checks">
+        <li><strong>Without an account:</strong> your progress stays on your phone.</li>
+        <li><strong>Online account (16+):</strong> just a player name – no email, no password. Servers in the EU.</li>
+        <li>No ads, no trackers, no selling of data.</li>
+        <li>Delete your account in the app at any time – or <a href="konto-loeschen.html">find out how here</a>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>FAQ</h2>
+    <details><summary>How much does Estimaster cost?</summary><p>Nothing. The app is free, with no ads and no in-app purchases.</p></details>
+    <details><summary>Where do the numbers come from?</summary><p>From public sources such as Wikidata. Every question shows its source and date, photos show author and license. If you find a mistake, report the question right in the app.</p></details>
+    <details><summary>Do I need an account or internet?</summary><p>No. You can play completely offline. For leaderboards, friends and duels, players aged 16+ create an online account – with just a player name.</p></details>
+    <details><summary>Which languages are available?</summary><p>12 languages. The app picks your phone's language automatically, and you can change it at any time in the settings. Players of all languages share the same leaderboards and duels.</p></details>
+    <details><summary>Is there an iPhone version?</summary><p>The Android version comes first.</p></details>
+    <details><summary>How can I contact you?</summary><p>Via the <a href="../../kontakt.html">contact form</a> or by email to planer.apps.dev@gmail.com.</p></details>
+  </section>
+
+  <section id="soon">
+    <div class="card" style="text-align:center; padding:40px 24px">
+      <h2>Coming soon</h2>
+      <p class="sub" style="margin:0 auto">Estimaster is currently in testing and will be available on Google Play soon.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="../../impressum.html">Legal notice</a> · <a href="datenschutz.html">Privacy policy</a> · <a href="nutzungsbedingungen.html">Terms of use</a> · <a href="konto-loeschen.html">Delete account</a> · <a href="../../kontakt.html">Contact</a> · <a href="../../index.html">Planer-Apps</a> · <a href="../" lang="de">Deutsch</a><br>
+    © Estimaster (German: Schätzmeister) · Questions partly from Wikidata (CC0) · Photos: Wikimedia Commons (author and license in the app)
+  </div>
+</footer>
+
+<script>
+  const shot = document.getElementById('tourShot');
+  const items = [...document.querySelectorAll('.tour-item')];
+  items.forEach((b) => b.addEventListener('click', () => {
+    items.forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    shot.src = b.dataset.img;
+    shot.alt = 'Preview: ' + b.querySelector('strong').textContent;
+  }));
+</script>
+<script src="../../i18n.js" defer></script>
+<script src="../../site.js" defer></script>
+</body>
+</html>

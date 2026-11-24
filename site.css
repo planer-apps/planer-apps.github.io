@@ -54,8 +54,53 @@ html.pa-sm:root, html.pa-sm:root[data-theme] {
 .pa-menu hr { border: 0; border-top: 1px solid #22354F; margin: 6px 4px; }
 .pa-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
 header.top { top: 48px !important; }
-@media (max-width: 340px) { .pa-logo span { display: none; } }
-@media (max-width: 520px) {
-  .pa-in { padding: 0 12px; }
-  .pa-menu { position: fixed; left: 12px; right: 12px; top: 56px; width: auto; }
+
+/* ---------- Sprachwahl (oben rechts) ---------- */
+html.pa-tr body { visibility: hidden; } /* kurz verstecken, bis die englischen Texte drin sind (kein Flackern) */
+html:not([data-lang="en"]) .pa-en { display: none !important; }
+.pa-bar details.pa-lang { position: relative; background: none; border: 0; padding: 0; margin: 0; border-radius: 0; box-shadow: none; }
+.pa-lang > summary {
+  color: rgba(238, 242, 247, .78); padding: 8px 10px; border-radius: 10px; cursor: pointer; list-style: none;
+  display: inline-flex; align-items: center; gap: 6px; transition: background .15s, color .15s; font-weight: 700; letter-spacing: .02em;
 }
+.pa-lang > summary::-webkit-details-marker { display: none; }
+.pa-lang > summary:hover, .pa-lang[open] > summary { color: #fff; background: rgba(255, 255, 255, .08); }
+.pa-lang > summary svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+.pa-lang > summary::after { content: ""; width: 6px; height: 6px; border: solid currentColor; border-width: 0 2px 2px 0; transform: translateY(-2px) rotate(45deg); transition: transform .2s; }
+.pa-lang[open] > summary::after { transform: translateY(1px) rotate(-135deg); }
+.pa-bar .pa-langs { left: auto; right: 0; width: 190px; padding: 6px; }
+/* Mit .pa-bar davor und eigenen Werten für alles – Seiten-Stile für „button“ dürfen hier nicht durchschlagen */
+.pa-bar .pa-langs button {
+  display: flex; align-items: center; gap: 12px; width: 100%; margin: 0; padding: 10px 12px; border: 0; border-radius: 12px; cursor: pointer;
+  background: transparent; color: #EEF2F7; font: 600 15px/1.2 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-align: left;
+  box-shadow: none; opacity: 1; min-height: 0;
+}
+.pa-bar .pa-langs button:hover { background: #1A2B42; }
+.pa-bar .pa-langs button b { width: 30px; padding: 3px 0; border-radius: 7px; text-align: center; font-size: 12px; background: #1A2B42; color: #9AA8BA; }
+.pa-bar .pa-langs button[aria-current="true"] b { background: #2CC9B0; color: #0E1A2B; }
+.pa-bar .pa-langs button[aria-current="true"]::after { content: "✓"; margin-left: auto; color: #2CC9B0; font-weight: 900; }
+
+/* Hinweis auf Englisch: Apps gibt es nur auf Deutsch */
+.pa-note { background: #1B2A14; border-bottom: 1px solid #3B5A22; color: #E4F2D6; font: 500 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  max-height: 220px; overflow: hidden; transition: max-height .6s ease, opacity .4s ease, border-color .6s; }
+.pa-note.pa-hide { max-height: 0; opacity: 0; border-bottom-color: transparent; }
+/* Fortschritt bis zum Ausblenden */
+.pa-note { position: relative; }
+.pa-note::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: #FFC53D; opacity: .6;
+  transform-origin: left; animation: pa-note-t 10s linear forwards; }
+@keyframes pa-note-t { to { transform: scaleX(0); } }
+.pa-note-in { max-width: 1120px; margin: 0 auto; padding: 9px 20px; display: flex; align-items: center; gap: 10px; }
+.pa-note b { flex: none; font-size: 11px; font-weight: 800; padding: 2px 6px; border-radius: 6px; background: #FFC53D; color: #1A1300; }
+.pa-note span { flex: 1; }
+.pa-note .pa-note-in button { flex: none; width: 28px; height: 28px; margin: 0; padding: 0; border: 0; border-radius: 8px; background: transparent;
+  color: inherit; font: 400 20px/1 system-ui, sans-serif; cursor: pointer; box-shadow: none; }
+.pa-note .pa-note-in button:hover { background: rgba(255, 255, 255, .1); }
+@media (max-width: 520px) {
+  .pa-in { padding: 0 12px; gap: 2px; }
+  .pa-menu { position: fixed; left: 12px; right: 12px; top: 56px; width: auto; }
+  .pa-bar .pa-langs { left: auto; right: 12px; width: 190px; }
+  .pa-link, .pa-apps > summary, .pa-lang > summary { padding: 8px 8px; }
+  .pa-lang > summary svg { display: none; }
+  .pa-logo { margin-right: 4px; }
+}
+@media (max-width: 400px) { .pa-logo span { display: none; } }

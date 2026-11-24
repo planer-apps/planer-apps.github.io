@@ -77,9 +77,9 @@ window.PA_EN = {
 
   // ---------- Startseite: Zahlen, Apps, Werte ----------
   "Apps für Schule, Ausbildung und Freizeit": "Apps for school, training and leisure",
-  "Werbung in unseren Planern": "Ads in our planners",
+  "Werbung in unseren Apps": "Ads in our apps",
   "Tracker und Analyse-Dienste": "Trackers and analytics services",
-  "Bundesländer mit Ferien und Feiertagen": "German states with school holidays and public holidays",
+  "Offline nutzbar – ganz ohne Konto": "Usable offline – no account needed",
   "Eine App für jeden Abschnitt.": "An app for every stage.",
   "Von der 5. Klasse bis zur Abschlussprüfung – jede App ist genau auf ihren Alltag zugeschnitten.":
     "From 5th grade to the final exam – each app is tailored to its everyday life.",

@@ -1,11 +1,4 @@
-// Planer-Apps – Übersetzungen (Deutsch → Englisch).
-// So funktioniert es: site.js ersetzt auf Englisch jeden Text, der hier GENAU so (Leerzeichen zusammengefasst) als
-// Schlüssel steht. Fehlt ein Text, bleibt er deutsch. Fehlende Texte zeigt in der Vorschau die Browser-Konsole:
-//   window.paMissing   (Liste aller deutschen Texte ohne Übersetzung auf der aktuellen Seite)
-// Rechtstexte (Impressum, Datenschutz, Nutzungsbedingungen, Konto löschen) bleiben bewusst deutsch – nur die
-// deutsche Fassung ist verbindlich. Dort erscheint auf Englisch ein Hinweis.
 window.PA_EN = {
-  // ---------- Leiste & Sprachwahl ----------
   "Alle Apps": "All apps",
   "Übersicht": "Overview",
   "Alle Planer-Apps auf einen Blick": "All Planer apps at a glance",
@@ -17,7 +10,6 @@ window.PA_EN = {
   "Sprache": "Language",
   "Schätzmeister": "Estimaster",
 
-  // ---------- Startseite: Karussell ----------
   "Neu": "New",
   "Der AzubiPlaner ist im Test": "AzubiPlaner is in testing",
   "Schule und Ausbildung –": "School and training –",
@@ -75,7 +67,6 @@ window.PA_EN = {
   "Pause / Weiter": "Pause / Play",
   "Unsere Apps": "Our apps",
 
-  // ---------- Startseite: Zahlen, Apps, Werte ----------
   "Apps für Schule, Ausbildung und Freizeit": "Apps for school, training and leisure",
   "Werbung in unseren Apps": "Ads in our apps",
   "Tracker und Analyse-Dienste": "Trackers and analytics services",
@@ -150,7 +141,6 @@ window.PA_EN = {
   "12 Sprachen:": "12 languages:",
   "Deutsch, Englisch, Französisch, Spanisch, Italienisch, Portugiesisch, Niederländisch, Polnisch, Türkisch, Ukrainisch, Bulgarisch und Chinesisch": "English, German, French, Spanish, Italian, Portuguese, Dutch, Polish, Turkish, Ukrainian, Bulgarian and Chinese",
 
-  // ---------- Kontakt ----------
   "Schreib uns.": "Write to us.",
   "Fragen, Fehler oder Ideen? Schreib uns – wir antworten per E-Mail. Lieber direkt per Mail:":
     "Questions, bugs or ideas? Write to us – we reply by email. Prefer email directly?",
@@ -175,7 +165,6 @@ window.PA_EN = {
   "Schreib uns: Fragen, Fehler oder Ideen zu AzubiPlaner, SchulPlaner und Schätzmeister.":
     "Write to us: questions, bugs or ideas about AzubiPlaner, SchulPlaner and Estimaster.",
 
-  // ---------- AzubiPlaner-Seite ----------
   "Vorschau": "Preview",
   "Funktionen": "Features",
   "Daten": "Data",
@@ -273,7 +262,6 @@ window.PA_EN = {
   "AzubiPlaner: Berufsschule, Betrieb, Berichtsheft, Noten und Prüfungen in einer App für Auszubildende. Werbefrei.":
     "AzubiPlaner: vocational school, workplace, report book, grades and exams in one app for apprentices. Ad-free.",
 
-  // ---------- Schätzmeister-Seite ----------
   "Wie schwer ist ein Ferrari F40? Wie hoch ist die Zugspitze? Jeden Tag fünf neue Fragen – je näher du an der echten Zahl liegst, desto mehr Punkte. Vergleich dich mit allen oder fordere deine Freunde heraus.":
     "How heavy is a Ferrari F40? How tall is the Zugspitze? Five new questions every day – the closer you are to the real number, the more points. Compare yourself with everyone or challenge your friends.",
   "Kostenlos & ohne Werbung": "Free & no ads",
@@ -352,13 +340,11 @@ window.PA_EN = {
   "Schätzmeister: das tägliche Schätzspiel mit über 2.500 Fragen, Ranglisten und Duellen mit Freunden. Kostenlos und ohne Werbung.":
     "Schätzmeister: the daily estimation game with 2,500+ questions, leaderboards and duels with friends. Free and without ads.",
 
-  // ---------- Rechtsseiten: nur Leiste/Rückweg ----------
   "← Planer-Apps": "← Planer-Apps",
   "← Schätzmeister": "← Schätzmeister",
   "← AzubiPlaner": "← AzubiPlaner"
 };
 
-// Hinweise, die nur auf Englisch erscheinen
 window.PA_EN_NOTE = {
   apps: "Please note: AzubiPlaner and SchulPlaner are currently available in German only. Estimaster is available in 12 languages.",
   legal: "This page is only available in German – the German version is legally binding."

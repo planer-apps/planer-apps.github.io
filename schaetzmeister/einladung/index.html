@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="pa-sm" data-pa-pagelang="einladung" data-pa-alt="../index.html" lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Einladung – Schätzmeister / Estimaster</title>
+  <link rel="icon" href="../img/icon.png">
+  
+  <style>
+    :root { --bg:#0B0A1A; --surface:#15132B; --muted:#1F1C3D; --border:#2E2A55; --text:#F4F2FF; --text-2:#9C97C3; --accent:#FFC53D; --accent-2:#FF9F1C; --on-accent:#1A1300; }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--text);
+      background-image: radial-gradient(700px 420px at 85% -10%, #2A1F6B 0%, transparent 70%); background-repeat:no-repeat;
+      font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+    main { width:100%; max-width:440px; padding:32px 16px; text-align:center; }
+    img.icon { width:88px; height:88px; border-radius:22px; }
+    h1 { font-size:28px; margin:18px 0 8px; }
+    p { color:var(--text-2); margin:0 0 20px; }
+    .code { display:inline-block; font-size:34px; font-weight:800; letter-spacing:8px; color:var(--accent);
+      background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:10px 22px; margin-bottom:24px; }
+    a.btn { display:block; text-decoration:none; font-weight:700; border-radius:16px; padding:15px 20px; margin:10px 0; }
+    a.primary { background:linear-gradient(90deg, var(--accent), var(--accent-2)); color:var(--on-accent); }
+    a.ghost { border:1.5px solid var(--border); color:var(--text); }
+    small { display:block; color:var(--text-2); margin-top:18px; font-size:13px; }
+  </style>
+  <link rel="stylesheet" href="../../site.css?v=1381e435">
+  <script>(function(){var d=document.documentElement,c="",l;try{c=localStorage.getItem("pa_lang")||""}catch(e){}if(c!=="de"&&c!=="en")c="";if(c)l=c;else{var n=((navigator.languages&&navigator.languages[0])||navigator.language||"de").toLowerCase();l=n.indexOf("de")===0?"de":"en"}var p=d.getAttribute("data-pa-pagelang"),a=d.getAttribute("data-pa-alt");if(p&&a&&l!==p&&(c||p==="de")){d.style.visibility="hidden";location.replace(a+location.hash);return}if(p&&!c)l=p;d.setAttribute("data-lang",l);if(l==="en"){d.classList.add("pa-tr");setTimeout(function(){d.classList.remove("pa-tr")},2000)}})();</script>
+</head>
+<body>
+<nav class="pa-bar" aria-label="Planer-Apps">
+  <div class="pa-in">
+    <a class="pa-logo" href="../../index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="paLogoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2CC9B0"/><stop offset="1" stop-color="#0F9F8C"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#paLogoG)"/><path d="M9 16.5l4.5 4.5L23 11" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Planer-Apps</span></a>
+    <details class="pa-apps">
+      <summary>Alle Apps</summary>
+      <div class="pa-menu">
+        <a href="../../index.html#apps"><span class="pa-all">◆</span><strong>Übersicht</strong><small>Alle Planer-Apps auf einen Blick</small></a>
+        <hr>
+        <a href="../../azubiplaner/index.html"><img src="../../img/azubiplaner.png" alt=""><strong>AzubiPlaner</strong><small>Für Auszubildende</small></a>
+        <a href="../../index.html#schulplaner"><img src="../../img/schulplaner.png" alt=""><strong>SchulPlaner<span class="pa-soon">bald</span></strong><small>Für Schülerinnen und Schüler</small></a>
+        <a href="../../schaetzmeister/index.html" data-en-href="../../schaetzmeister/en/index.html"><img src="../../img/schaetzmeister.png" alt=""><strong>Schätzmeister</strong><small>Das Schätzspiel für zwischendurch</small></a>
+      </div>
+    </details>
+    <div class="pa-right">
+      <a class="pa-link" href="../../kontakt.html">Kontakt</a>
+      <details class="pa-lang">
+        <summary aria-label="Sprache"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="pa-cur">DE</span></summary>
+        <div class="pa-menu pa-langs">
+          <button type="button" data-lang="de"><b>DE</b>Deutsch</button>
+          <button type="button" data-lang="en"><b>EN</b>English</button>
+        </div>
+      </details>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <img class="icon" src="../img/icon.png" alt="">
+  <h1 id="title">Du wurdest eingeladen!</h1>
+  <p id="lead">Öffne die App – ihr seid dann direkt befreundet.</p>
+  <div class="code" id="code">······</div>
+  <a class="btn primary" id="open" href="#">In der App öffnen</a>
+  <a class="btn ghost" id="store" href="#">App im Play Store holen</a>
+  <small id="hint">Noch nicht installiert? Nach der Installation wird die Einladung automatisch eingelöst.</small>
+</main>
+<script>
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var raw = (q.get('c') || q.get('d') || q.get('l') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);
+    var duel = !q.get('c') && (!!q.get('d') || !!q.get('l'));
+    var live = !q.get('c') && !q.get('d') && !!q.get('l');
+    var en = !/^de\b/i.test(navigator.language || 'de');
+    var t = en ? {
+      title: duel ? 'You have been challenged!' : 'You have been invited!',
+      lead: duel ? 'Open Estimaster and accept the duel – who estimates better?' : 'Open Estimaster – you will be friends right away.',
+      open: 'Open in the app', store: 'Get the app on Google Play',
+      hint: 'Not installed yet? The invitation is redeemed automatically after installing.'
+    } : {
+      title: duel ? 'Du wurdest herausgefordert!' : 'Du wurdest eingeladen!',
+      lead: duel ? 'Öffne den Schätzmeister und nimm das Duell an – wer schätzt besser?' : 'Öffne den Schätzmeister – ihr seid dann direkt befreundet.',
+      open: 'In der App öffnen', store: 'App im Play Store holen',
+      hint: 'Noch nicht installiert? Nach der Installation wird die Einladung automatisch eingelöst.'
+    };
+    document.documentElement.lang = en ? 'en' : 'de';
+    for (var k in t) { var el = document.getElementById(k); if (el) el.textContent = t[k]; }
+    document.getElementById('code').textContent = raw || '—';
+    var kind = live ? 'live' : (duel ? 'duel' : 'friend');
+    var store = 'https://play.google.com/store/apps/details?id=de.schaetzmeister.app&referrer=' +
+      encodeURIComponent(kind + '=' + raw);
+    var app = 'estimaster://' + kind + '?c=' + raw;
+    var android = /android/i.test(navigator.userAgent);
+    var intent = 'intent://' + kind + '?c=' + raw + '#Intent;scheme=estimaster;package=de.schaetzmeister.app;' +
+      'S.browser_fallback_url=' + encodeURIComponent(store) + ';end';
+    var openEl = document.getElementById('open');
+    openEl.href = android ? intent : app;
+    document.getElementById('store').href = store;
+    if (!raw) { openEl.style.display = 'none'; }
+    else if (android) { setTimeout(function () { location.href = intent; }, 400); }
+  })();
+</script>
+<script src="../../i18n.js?v=e72a63bd" defer></script>
+<script src="../../site.js?v=781e4605" defer></script>
+</body>
+</html>

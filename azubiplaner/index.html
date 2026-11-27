@@ -6,7 +6,7 @@
   <title>AzubiPlaner – Ausbildung im Griff</title>
   <meta name="description" content="AzubiPlaner: Berufsschule, Betrieb, Berichtsheft, Noten und Prüfungen in einer App für Auszubildende. Werbefrei.">
   <link rel="icon" href="img/icon.png">
-  <!-- Bewusst ohne externe Schriften, Skripte oder Tracker: nichts wird an Dritte übertragen. -->
+  
   <style>
     :root {
       --navy: #0E1A2B; --navy-soft: #16263C; --teal: #0F9F8C; --teal-bright: #2CC9B0;
@@ -52,12 +52,12 @@
     :root[data-theme="dark"] .cta { background: var(--teal-bright); color: var(--navy); }
     @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta { background: var(--teal-bright); color: var(--navy); } }
     .cta-note { display: block; margin-top: 10px; font-size: 14px; color: var(--text-2); }
-    /* Handy-Rahmen: Metallkante, Kamera-Loch oben mittig, Seitentasten – gut sichtbar auch auf dunklem Grund */
+    
     .phone { position: relative; width: min(320px, 78vw); margin: 0 auto; border-radius: 48px; padding: 12px;
       background: linear-gradient(145deg, #6B778A 0%, #2B3445 20%, #161C27 50%, #2B3445 80%, #5A6679 100%);
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28), inset 0 0 0 4px #0A0E15, 0 0 0 1px rgba(0, 0, 0, .35),
         0 34px 70px -24px rgba(14, 26, 43, .55), 0 0 80px -20px color-mix(in srgb, var(--accent) 45%, transparent); }
-    /* Kamera-Loch: schlichter schwarzer Punkt, Linse genau mittig (kein schräger Lichtreflex) */
+    
     .phone::before { content: ""; position: absolute; z-index: 2; top: 23px; left: 50%; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%;
       background: radial-gradient(circle, #1C2638 0 22%, #05070B 32%); box-shadow: 0 0 0 1.5px rgba(0, 0, 0, .55); }
     .phone::after { content: ""; position: absolute; right: -3px; top: 22%; width: 4px; height: 70px; border-radius: 0 4px 4px 0;
@@ -70,7 +70,6 @@
     h2 { font-size: clamp(28px, 3.6vw, 40px); margin: 0 0 12px; letter-spacing: -0.01em; }
     p.sub { color: var(--text-2); margin: 0 0 32px; max-width: 40em; }
 
-    /* Interaktive Vorschau */
     .tour { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: center; }
     .tour-list { display: grid; gap: 10px; }
     .tour-item { text-align: left; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 16px; padding: 16px 18px; font: inherit; cursor: pointer; transition: border-color .15s, transform .15s; }
@@ -240,9 +239,7 @@
 </footer>
 
 <script>
-  // Die Website ist immer dunkel (Wunsch 18.11.) – kein Umschalter mehr.
 
-  // Interaktive Vorschau
   const shot = document.getElementById('tourShot');
   const items = [...document.querySelectorAll('.tour-item')];
   items.forEach((b) => b.addEventListener('click', () => {

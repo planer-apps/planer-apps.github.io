@@ -1,12 +1,12 @@
 <!doctype html>
-<html class="pa-sm" data-pa-pagelang="de" data-pa-alt="en/index.html" lang="de" data-theme="dark">
+<html class="pa-sm" data-pa-pagelang="de" data-pa-alt="einladung/index.html" data-pa-pagelang="de" data-pa-alt="en/index.html" lang="de" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Schätzmeister – Wie gut kannst du wirklich schätzen?</title>
   <meta name="description" content="Schätzmeister: das tägliche Schätzspiel mit über 2.500 Fragen, Ranglisten und Duellen mit Freunden. Kostenlos und ohne Werbung.">
   <link rel="icon" href="img/icon.png">
-  <!-- Bewusst ohne externe Schriften, Skripte oder Tracker: nichts wird an Dritte übertragen. Vorlage: AzubiPlaner-Website. -->
+  
   <style>
     :root {
       --bg: #0B0A1A; --surface: #15132B; --muted: #1F1C3D; --border: #2E2A55;
@@ -40,7 +40,7 @@
     .badge { background: var(--muted); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 600; color: var(--text-2); }
     .cta { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: var(--on-accent); border-radius: 14px; padding: 14px 22px; font-weight: 700; text-decoration: none; }
     .cta-note { display: block; margin-top: 10px; font-size: 14px; color: var(--text-2); }
-    /* Handy-Rahmen: Metallkante, Kamera-Loch oben mittig, Seitentasten */
+    
     .phone { position: relative; width: min(320px, 78vw); margin: 0 auto; border-radius: 48px; padding: 12px;
       background: linear-gradient(145deg, #7A7699 0%, #2C2950 20%, #14122A 50%, #2C2950 80%, #67638A 100%);
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28), inset 0 0 0 4px #07060F, 0 0 0 1px rgba(0, 0, 0, .35),
@@ -234,7 +234,6 @@
 </footer>
 
 <script>
-  // Die Website ist immer dunkel (wie beim AzubiPlaner).
   const shot = document.getElementById('tourShot');
   const items = [...document.querySelectorAll('.tour-item')];
   items.forEach((b) => b.addEventListener('click', () => {
